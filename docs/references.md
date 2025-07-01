@@ -1,0 +1,1 @@
+PlayStation Portable (PSP) Architecture: https://www.copetti.org/writings/consoles/playstation-portable/
