@@ -105,6 +105,12 @@ void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, 
     for(int i = 0; i < grid->nrow; i++) {
         for(int j = 0; j < grid->ncol; j++) {
             Cell* cell = &grid->list_cells[i][j];
+
+            if (cell->solution_letter == '\0') {
+                drawRect(cell->x, cell->y, cell->w, cell->h, renderer, 0, 0, 0, 255, "filled");
+                continue; // Pula para a próxima célula
+            }
+
             // define cell bg color
             SDL_Color rectBackgroundColor;
 
@@ -118,8 +124,6 @@ void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, 
 
             if (is_solved) {
               rectBackgroundColor = (SDL_Color) { 144, 238, 144, 255 };  
-            } else if (cell->current_letter == '\0') {
-                rectBackgroundColor = (SDL_Color) { 0, 0, 0, 255 };
             } else { 
                 rectBackgroundColor = (SDL_Color) { 255, 255, 255, 255 }; 
             }
@@ -143,10 +147,9 @@ void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, 
             drawRect(cell->x, cell->y, cell->w, cell->h, renderer, rectBackgroundColor.r, rectBackgroundColor.g, rectBackgroundColor.b, rectBackgroundColor.a, "filled");
             drawRect(cell->x, cell->y, cell->w, cell->h, renderer, rectBorderColor.r, rectBorderColor.g, rectBorderColor.b, rectBorderColor.a, "border");
             
-            char current_letter = cell->current_letter;
-            if (current_letter == '\0') continue;
-            if (current_letter >= 'A' && current_letter <= 'Z') {
-                int texture_index = current_letter - 'A';
+            char player_letter = cell->player_letter;
+            if (player_letter >= 'A' && player_letter <= 'Z') {
+                int texture_index = player_letter - 'A';
                 SDL_Texture* letter_texture = grid->letter_textures_cache[texture_index];
                 if (letter_texture != NULL) {
                     SDL_FRect dest_rect;
@@ -162,4 +165,12 @@ void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, 
             }
         }
     }
+}
+
+void updateDrawInfo(Player* player, TTF_Font* font, SDL_Renderer* renderer) {
+    float x = (WINDOW_WIDTH / 2) + 20;
+    float y = WINDOW_HEIGHT / 2;
+    float rectW = (WINDOW_WIDTH / 2) - 50;
+    float rectH = (WINDOW_HEIGHT / 2 ) - 15;
+    drawInfo(player, x, y, rectW, rectH, font, renderer);
 }

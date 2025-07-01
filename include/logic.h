@@ -21,7 +21,9 @@ typedef struct {
     float y; // j
     float w;
     float h;
-    char current_letter;
+    //char current_letter;
+    char solution_letter;
+    char player_letter;
 } Cell;
 
 typedef struct {
@@ -48,8 +50,8 @@ typedef struct {
 } Grid;
 
 void print1d(char *v, int size);
-void printGrid(Grid* grid, int size);
-Cell* newCell(int x, int y, int w, int h, char letter);
+//void printGrid(Grid* grid, int size); obsoleta
+// Cell* newCell(int x, int y, int w, int h, char letter); obsoleta
 Grid* newGrid(int nrow, int ncol, GridArea* gridArea);
 GridArea* newGridArea(int x, int y, int w, int h, int padding);
 void moveGridSelection(Grid* grid, Word* active_word, int d_row, int d_col);

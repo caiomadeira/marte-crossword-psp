@@ -32,6 +32,9 @@ typedef struct app {
     Preciso usar delcarações externas pra acessar o banco.
     TODO: INvestigar o porque
 */
+
+// TODO: Separate score, time, etc in other functions draws
+
 void navigateInWordMode(app_t* a, int d_row, int d_col);
 
 void updateCurrentHint(app_t* a) {
@@ -40,7 +43,7 @@ void updateCurrentHint(app_t* a) {
     int r = a->grid->ai;
     int c = a->grid->aj;
 
-    if (a->grid->list_cells[r][c].current_letter == '\0') {
+    if (a->grid->list_cells[r][c].solution_letter == '\0') {
         a->current_hint = NULL;
         return;
     }
@@ -245,7 +248,29 @@ SDL_AppResult SDL_AppIterate(void *appstate)
         moveGridSelection(a->grid, a->selected_word, d_row, d_col);
         
         if ((a->pad.Buttons & PSP_CTRL_CROSS) && !(a->prev_pad.Buttons & PSP_CTRL_CROSS)) {
-            moveCellLetterSelection(a->grid);
+            
+            Word* word_to_check = findWordAt(a->grid->ai, a->grid->aj, words, words_count, a->active_orientation);
+            
+            // apenas permite editar se a ppalavra nao estiver resolvida
+            if (word_to_check && !word_to_check->is_solved) {
+                moveCellLetterSelection(a->grid);
+                // verifica se a palavra foi completada
+                if (checkWordCompletion(a->grid, word_to_check)) {
+                    word_to_check->is_solved = true;
+                    a->player->score += 100;
+                    trigger_native_sound(); // TODO: Change this trigger audio logic
+                    // updateDrawInfo(a->player, a->hint_font, a->renderer); TODO: nao tem necessidade dessa funcao a drawInfo ja deveria atualizar
+                }
+                
+                // checa tb na outra orientação caso tenha uma interseção
+                Word* other_word = findWordAt(a->grid->ai, a->grid->aj, words, words_count, (a->active_orientation == HORIZONTAL) ? VERTICAL : HORIZONTAL);
+                if (other_word && !other_word->is_solved && checkWordCompletion(a->grid, other_word)) {
+                    other_word->is_solved = true;
+                    a->player->score += 100;
+                    trigger_native_sound();
+                    // updateDrawInfo(a->player, a->hint_font, a->renderer);
+                }
+            }
         }
 
         // Troca a orientação de escrita na interseção (botão círculo)
@@ -271,7 +296,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     SDL_RenderClear(a->renderer);
     SDL_RenderTexture(a->renderer, a->background_texture, NULL, NULL);
     // Draw Grid
-    drawGrid(a->grid, a->renderer, a->selection_mode, a->selected_word);
+    drawGrid(a->grid, a->renderer, a->selection_mode, a->selected_word, words, words_count);
     // Draw Hint
     float x = (WINDOW_WIDTH / 2) + 20;
     float y = 10;

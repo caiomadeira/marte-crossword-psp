@@ -10,5 +10,6 @@ void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, 
 void drawHint(const char* text, float x, float y, float rectW, float rectH, TTF_Font* font, SDL_Renderer* renderer);
 void drawWrappedText(const char *text, float x, float y, TTF_Font* font, SDL_Color fg, SDL_Renderer* renderer, int wrap_width_px);
 void drawInfo(Player* player, float x, float y, float rectW, float rectH, TTF_Font* font, SDL_Renderer* renderer);
+void updateDrawInfo(Player* player, TTF_Font* font, SDL_Renderer* renderer);
 
 #endif

@@ -58,7 +58,8 @@ typedef enum {
 
 #define ROAST_CHICKEN_TTF "font/roasted-chicken.ttf"
 #define GAME_OVER_TTFF "font/game_over.ttf"
-#define TEST_WAV "audio/test.wav"
+#define TEST_WAV "audio/finish.wav"
+#define CORRECT_WAV "audio/correct.wav"
 #define BACKGROUND_PNG "img/background.png"
 
 /* FUNCTIONS */
