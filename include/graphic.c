@@ -63,7 +63,7 @@ void drawHint(const char* text, float x, float y, float rectW, float rectH, TTF_
     drawWrappedText(text, x + 10, y + 30, font, SDL_RECT_BORDER_COLOR, renderer, wrap_width);
 }
 
-void drawInfo(Player* player, float x, float y, float rectW, float rectH, TTF_Font* font, SDL_Renderer* renderer) {
+void drawInfoBox(float x, float y, float rectW, float rectH, TTF_Font* font, SDL_Renderer* renderer) {
     if (font == NULL) return;
     
     SDL_Color SDL_RECT_COLOR = { 0, 0, 0, 255 };
@@ -71,10 +71,17 @@ void drawInfo(Player* player, float x, float y, float rectW, float rectH, TTF_Fo
 
     drawRect(x, y, rectW, rectH, renderer, SDL_RECT_COLOR.r, SDL_RECT_COLOR.g, SDL_RECT_COLOR.b, SDL_RECT_COLOR.a, "filled");
     drawRect(x + 5, y + 5, rectW - 10, rectH - 10, renderer, SDL_RECT_BORDER_COLOR.r, SDL_RECT_BORDER_COLOR.g, SDL_RECT_BORDER_COLOR.b, SDL_RECT_BORDER_COLOR.a, "border");
+}
 
+void drawScore(int score, TTF_Font* font, SDL_Renderer* renderer) {
+    SDL_Color SDL_RECT_BORDER_COLOR = { 255, 255, 255, 255 };
+    float x = (WINDOW_WIDTH / 2) + 20;
+    float y = WINDOW_HEIGHT / 2;
+    float rectW = (WINDOW_WIDTH / 2) - 50;
+    float rectH = (WINDOW_HEIGHT / 2 ) - 15;
     int wrap_width = (int)rectW - 20;
     char scoreText[64];
-    snprintf(scoreText, sizeof(scoreText), "Score: %d", player->score);
+    snprintf(scoreText, sizeof(scoreText), "Score: %d", score);
     drawWrappedText(scoreText, x + 10, y + 10, font, SDL_RECT_BORDER_COLOR, renderer, wrap_width);
 }
 
@@ -167,10 +174,26 @@ void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, 
     }
 }
 
-void updateDrawInfo(Player* player, TTF_Font* font, SDL_Renderer* renderer) {
+void drawTime(Uint32 start_time, TTF_Font * font, SDL_Renderer* renderer) {
+    if (font == NULL) return;
+
     float x = (WINDOW_WIDTH / 2) + 20;
     float y = WINDOW_HEIGHT / 2;
     float rectW = (WINDOW_WIDTH / 2) - 50;
     float rectH = (WINDOW_HEIGHT / 2 ) - 15;
-    drawInfo(player, x, y, rectW, rectH, font, renderer);
+    int wrap_width = (int)rectW - 20;
+
+    Uint32 current_ticks = SDL_GetTicks();
+    Uint32 elapsedMS = current_ticks - start_time;
+    Uint32 elapsed_seconds = elapsed_seconds / 1000;
+
+    // formatando o tewmpo pra min:seg
+    int minutes = elapsed_seconds / 60;
+    int seconds = elapsed_seconds % 60;
+    char timeText[32];
+
+    snprintf(timeText, sizeof(timeText), "Time: %02d:%02d", minutes, seconds);
+
+    SDL_Color SDL_TEXT_COLOR = { 255, 255, 255, 255 };
+    drawWrappedText(timeText, x, y, font, SDL_TEXT_COLOR, renderer, (int)rectW);
 }

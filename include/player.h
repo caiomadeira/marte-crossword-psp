@@ -5,7 +5,7 @@
 
 typedef struct player {
     char name[40];
-    float score;
+    int score;
 } Player;
 
 Player* init_player(void);

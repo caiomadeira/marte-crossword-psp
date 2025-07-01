@@ -1,4 +1,4 @@
-/home/caiomadeira/Desktop/app-psp/build/CMakeFiles/RositaCrossword.dir
-/home/caiomadeira/Desktop/app-psp/build/CMakeFiles/copy_assets.dir
-/home/caiomadeira/Desktop/app-psp/build/CMakeFiles/edit_cache.dir
-/home/caiomadeira/Desktop/app-psp/build/CMakeFiles/rebuild_cache.dir
+/home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles/RositaCrossword.dir
+/home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles/copy_assets.dir
+/home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles/edit_cache.dir
+/home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles/rebuild_cache.dir

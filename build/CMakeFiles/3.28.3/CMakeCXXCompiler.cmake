@@ -1,4 +1,4 @@
-set(CMAKE_CXX_COMPILER "/home/caiomadeira/pspdev/bin/psp-g++")
+set(CMAKE_CXX_COMPILER "/home/caiomadeits/pspdev/bin/psp-g++")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_COMPILER_VERSION "15.1.1")
@@ -22,11 +22,11 @@ set(CMAKE_CXX_SIMULATE_VERSION "")
 
 
 
-set(CMAKE_AR "/home/caiomadeira/pspdev/bin/psp-ar")
-set(CMAKE_CXX_COMPILER_AR "/home/caiomadeira/pspdev/bin/psp-gcc-ar")
-set(CMAKE_RANLIB "/home/caiomadeira/pspdev/bin/psp-ranlib")
-set(CMAKE_CXX_COMPILER_RANLIB "/home/caiomadeira/pspdev/bin/psp-gcc-ranlib")
-set(CMAKE_LINKER "/home/caiomadeira/pspdev/bin/psp-ld")
+set(CMAKE_AR "/home/caiomadeits/pspdev/bin/psp-ar")
+set(CMAKE_CXX_COMPILER_AR "/home/caiomadeits/pspdev/bin/psp-gcc-ar")
+set(CMAKE_RANLIB "/home/caiomadeits/pspdev/bin/psp-ranlib")
+set(CMAKE_CXX_COMPILER_RANLIB "/home/caiomadeits/pspdev/bin/psp-gcc-ranlib")
+set(CMAKE_LINKER "/home/caiomadeits/pspdev/bin/psp-ld")
 set(CMAKE_MT "")
 set(CMAKE_TAPI "CMAKE_TAPI-NOTFOUND")
 set(CMAKE_COMPILER_IS_GNUCXX 1)
@@ -79,7 +79,7 @@ endif()
 
 
 
-set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/home/caiomadeira/pspdev/psp/sdk/include;/home/caiomadeira/pspdev/psp/include/c++/15.1.1;/home/caiomadeira/pspdev/psp/include/c++/15.1.1/psp;/home/caiomadeira/pspdev/psp/include/c++/15.1.1/backward;/home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include;/home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include-fixed;/home/caiomadeira/pspdev/psp/include")
+set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/home/caiomadeits/pspdev/psp/sdk/include;/home/caiomadeits/pspdev/psp/include/c++/15.1.1;/home/caiomadeits/pspdev/psp/include/c++/15.1.1/psp;/home/caiomadeits/pspdev/psp/include/c++/15.1.1/backward;/home/caiomadeits/pspdev/lib/gcc/psp/15.1.1/include;/home/caiomadeits/pspdev/lib/gcc/psp/15.1.1/include-fixed;/home/caiomadeits/pspdev/psp/include")
 set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;m;gcc;m;pthreadglue;pthread;cglue;c;psputility;psprtc;pspnet_inet;pspnet_resolver;pspsdk;pspmodinfo;pspuser;pspkernel;gcc")
-set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/home/caiomadeira/pspdev/lib;/home/caiomadeira/pspdev/psp/lib;/home/caiomadeira/pspdev/psp/sdk/lib;/home/caiomadeira/pspdev/lib/gcc/psp/15.1.1;/home/caiomadeira/pspdev/lib/gcc")
+set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/home/caiomadeits/pspdev/lib;/home/caiomadeits/pspdev/psp/lib;/home/caiomadeits/pspdev/psp/sdk/lib;/home/caiomadeits/pspdev/lib/gcc/psp/15.1.1;/home/caiomadeits/pspdev/lib/gcc")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

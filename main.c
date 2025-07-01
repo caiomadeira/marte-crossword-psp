@@ -25,6 +25,7 @@ typedef struct app {
     WordOrientation active_orientation;
     SelectionMode selection_mode;
     Word* selected_word;
+    Uint32 start_time;
 } app_t;
 
 // inicializa com as palavras
@@ -198,8 +199,9 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
             a->grid->letter_textures_cache[i] = NULL;
         }
     }
-
     updateCurrentHint(a); // evita o bug da hint nao aparecer ao iniciar
+    // INIT TIMER
+    a->start_time = SDL_GetTicks(); // NOTA: SDL_GetTicks() retorna o num de milissegundos desde que a biblioteca SDL foi inicializada.
 
 	*appstate = (void *)a;
 	return SDL_APP_CONTINUE;
@@ -259,7 +261,6 @@ SDL_AppResult SDL_AppIterate(void *appstate)
                     word_to_check->is_solved = true;
                     a->player->score += 100;
                     trigger_native_sound(); // TODO: Change this trigger audio logic
-                    // updateDrawInfo(a->player, a->hint_font, a->renderer); TODO: nao tem necessidade dessa funcao a drawInfo ja deveria atualizar
                 }
                 
                 // checa tb na outra orientação caso tenha uma interseção
@@ -268,7 +269,6 @@ SDL_AppResult SDL_AppIterate(void *appstate)
                     other_word->is_solved = true;
                     a->player->score += 100;
                     trigger_native_sound();
-                    // updateDrawInfo(a->player, a->hint_font, a->renderer);
                 }
             }
         }
@@ -305,8 +305,8 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     if (a->current_hint) drawHint(a->current_hint, x, y, rectW, rectH, a->hint_font, a->renderer);
 
     y = WINDOW_HEIGHT / 2;
-    drawInfo(a->player, x, y, rectW, rectH, a->hint_font, a->renderer);
-
+    drawInfoBox(x, y, rectW, rectH, a->hint_font, a->renderer);
+    drawScore(a->player->score, a->hint_font, a->renderer);
     SDL_RenderPresent(a->renderer); // Mostra na tela tudo o que foi desenhado    
     return SDL_APP_CONTINUE;
 }

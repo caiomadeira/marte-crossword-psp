@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/caiomadeira/Desktop/app-psp
+CMAKE_SOURCE_DIR = /home/caiomadeits/Desktop/marte-crossword-psp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/caiomadeira/Desktop/app-psp/build
+CMAKE_BINARY_DIR = /home/caiomadeits/Desktop/marte-crossword-psp/build
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -83,14 +83,14 @@ clean: CMakeFiles/copy_assets.dir/clean
 CMakeFiles/RositaCrossword.dir/all: CMakeFiles/copy_assets.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/caiomadeira/Desktop/app-psp/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target RositaCrossword"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target RositaCrossword"
 .PHONY : CMakeFiles/RositaCrossword.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/RositaCrossword.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/caiomadeira/Desktop/app-psp/build/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RositaCrossword.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/caiomadeira/Desktop/app-psp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles 0
 .PHONY : CMakeFiles/RositaCrossword.dir/rule
 
 # Convenience name for target.
@@ -109,14 +109,14 @@ CMakeFiles/RositaCrossword.dir/clean:
 CMakeFiles/copy_assets.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/copy_assets.dir/build.make CMakeFiles/copy_assets.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/copy_assets.dir/build.make CMakeFiles/copy_assets.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/caiomadeira/Desktop/app-psp/build/CMakeFiles --progress-num= "Built target copy_assets"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles --progress-num= "Built target copy_assets"
 .PHONY : CMakeFiles/copy_assets.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/copy_assets.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/caiomadeira/Desktop/app-psp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/copy_assets.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/caiomadeira/Desktop/app-psp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/caiomadeits/Desktop/marte-crossword-psp/build/CMakeFiles 0
 .PHONY : CMakeFiles/copy_assets.dir/rule
 
 # Convenience name for target.

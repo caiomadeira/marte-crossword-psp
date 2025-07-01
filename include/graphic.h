@@ -9,7 +9,8 @@ int drawRect(float x, float y, float w, float h, SDL_Renderer *renderer, int r, 
 void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, Word* selected_word, Word words[], int words_count);
 void drawHint(const char* text, float x, float y, float rectW, float rectH, TTF_Font* font, SDL_Renderer* renderer);
 void drawWrappedText(const char *text, float x, float y, TTF_Font* font, SDL_Color fg, SDL_Renderer* renderer, int wrap_width_px);
-void drawInfo(Player* player, float x, float y, float rectW, float rectH, TTF_Font* font, SDL_Renderer* renderer);
-void updateDrawInfo(Player* player, TTF_Font* font, SDL_Renderer* renderer);
+void drawInfoBox(float x, float y, float rectW, float rectH, TTF_Font* font, SDL_Renderer* renderer);
+void drawScore(int score, TTF_Font* font, SDL_Renderer* renderer);
+void drawTime(Uint32 start_time, TTF_Font * font, SDL_Renderer* renderer);
 
 #endif
