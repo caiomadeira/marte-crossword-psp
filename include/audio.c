@@ -11,6 +11,9 @@ static struct {
     int is_playing;        
 } g_sound;
 
+int  init_native_audio(const char *filename);
+void trigger_native_sound(void);
+void cleanup_native_audio(void);
 
 void audio_callback(void *buf, unsigned int length, void *userdata)
 {
