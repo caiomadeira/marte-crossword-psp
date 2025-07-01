@@ -1,12 +1,14 @@
 #include "words.h"
 
 Word words[] = {
-    {0, "Some eggs are made of.", "chocolate"},
-    {1, "Can be used to talk.", "telephone"},
-    {2, "One man walked above.", "water"},
-    {3, "A star.", "sun"},
-    {4, "Has wheels and can be fast.", "car"},
-    {5, "Can be a programming language or a natural satelite.", "lua"}
+    {0, "Some eggs are made of.", "chocolate", .is_solved = false },
+    {1, "Can be used to talk.", "telephone", .is_solved = false },
+    {2, "One man walked above.", "water", .is_solved = false },
+    {3, "A star.", "sun", .is_solved = false },
+    {4, "Has wheels and can be fast.", "car", .is_solved = false },
+    {5, "Can be a programming language or a natural satelite.", "lua", .is_solved = false },
+    {6, "... sunshine of spoteless mind.", "eternal", .is_solved = false },
+    {7, "Put your head on", "pillow", .is_solved = false }
 };
 
 int words_count = sizeof(words) / sizeof(words[0]);

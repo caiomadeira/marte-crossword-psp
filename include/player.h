@@ -4,8 +4,8 @@
 #include "common.h"
 
 typedef struct player {
-    float score;
     char name[40];
+    float score;
 } Player;
 
 Player* init_player(void);

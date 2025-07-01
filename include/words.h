@@ -19,12 +19,11 @@ typedef struct {
     char* word;
     int word_size;
     int hint_size;
-    // int start; 
-    //int end;
     bool is_placed;
     int pos_final_i;
     int pos_final_j;
     WordOrientation orientation;
+    bool is_solved; // if word is solved
 } Word;
 
 extern Word words[];

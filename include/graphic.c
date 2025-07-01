@@ -73,8 +73,6 @@ void drawInfo(Player* player, float x, float y, float rectW, float rectH, TTF_Fo
     drawRect(x + 5, y + 5, rectW - 10, rectH - 10, renderer, SDL_RECT_BORDER_COLOR.r, SDL_RECT_BORDER_COLOR.g, SDL_RECT_BORDER_COLOR.b, SDL_RECT_BORDER_COLOR.a, "border");
 
     int wrap_width = (int)rectW - 20;
-    drawWrappedText("X: select WORD or LETTER | O: Change orientation ", x + 10, y + 10, font, SDL_RECT_BORDER_COLOR, renderer, wrap_width);
-
     char scoreText[64];
     snprintf(scoreText, sizeof(scoreText), "Score: %d", player->score);
     drawWrappedText(scoreText, x + 10, y + 10, font, SDL_RECT_BORDER_COLOR, renderer, wrap_width);
@@ -100,7 +98,7 @@ void drawWrappedText(const char *text, float x, float y, TTF_Font* font, SDL_Col
     }
 }
 
-void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, Word* selected_word) {
+void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, Word* selected_word, Word words[], int words_count) {
     if (grid == NULL) return;
     SDL_Color rectBorderColor = { 0, 0, 0, 255 };
 
@@ -109,19 +107,33 @@ void drawGrid(Grid* grid, SDL_Renderer* renderer, SelectionMode selection_mode, 
             Cell* cell = &grid->list_cells[i][j];
             // define cell bg color
             SDL_Color rectBackgroundColor;
-            
-            if (cell->current_letter == '\0') {
-                rectBackgroundColor = (SDL_Color) { 0, 0, 0, 255 };
-            } else { rectBackgroundColor = (SDL_Color) { 255, 255, 255, 255 }; }
-            
-            if (selection_mode == WORD_MODE && selected_word && selected_word->is_placed) {
-                if (findWordAt(i, j, words, words_count, selected_word->orientation) == selected_word) {
-                    rectBackgroundColor = (SDL_Color){ 173, 216, 230, 255 };
-                }
 
-            } else if (selection_mode == LETTER_MODE && selected_word && selected_word->is_placed) {
-                if (findWordAt(i, j, words, words_count, selected_word->orientation) == selected_word) {
-                    rectBackgroundColor = (SDL_Color){ 211, 211, 211, 255 };
+            bool is_solved = false;
+            Word* word_cell_horizontal = findWordAt(i, j, words, words_count, HORIZONTAL);
+            Word* word_cell_vertical = findWordAt(i, j, words, words_count, VERTICAL);
+
+            if ((word_cell_horizontal && word_cell_horizontal->is_solved) || (word_cell_vertical && word_cell_vertical->is_solved)) {
+                is_solved = true;
+            }
+
+            if (is_solved) {
+              rectBackgroundColor = (SDL_Color) { 144, 238, 144, 255 };  
+            } else if (cell->current_letter == '\0') {
+                rectBackgroundColor = (SDL_Color) { 0, 0, 0, 255 };
+            } else { 
+                rectBackgroundColor = (SDL_Color) { 255, 255, 255, 255 }; 
+            }
+            
+            if (!is_solved) {
+                if (selection_mode == WORD_MODE && selected_word && selected_word->is_placed) {
+                    if (findWordAt(i, j, words, words_count, selected_word->orientation) == selected_word) {
+                        rectBackgroundColor = (SDL_Color){ 173, 216, 230, 255 };
+                    }
+
+                } else if (selection_mode == LETTER_MODE && selected_word && selected_word->is_placed) {
+                    if (findWordAt(i, j, words, words_count, selected_word->orientation) == selected_word) {
+                        rectBackgroundColor = (SDL_Color){ 211, 211, 211, 255 };
+                    }
                 }
             }
 
