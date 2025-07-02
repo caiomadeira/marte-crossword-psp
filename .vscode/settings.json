@@ -11,6 +11,10 @@
         "span": "c",
         "regex": "c",
         "valarray": "c",
-        "random": "c"
+        "random": "c",
+        "cstdlib": "c",
+        "graphic.h": "c",
+        "assets.h": "c",
+        "chrono": "c"
     }
 }

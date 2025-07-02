@@ -16,7 +16,7 @@
 #include <string.h> // Necessário para a função strrchr()
 #include <ctype.h>
 #include <stddef.h> // para o NULL
-
+#include "assets.h"
 // -------------------------
 // PSP
 #include <pspkernel.h>
@@ -55,12 +55,6 @@ typedef enum {
 #define WINDOW_WIDTH 480
 #define WINDOW_HEIGHT 272
 #define INIT_OPEN_GL_WINDOW false
-
-#define ROAST_CHICKEN_TTF "font/roasted-chicken.ttf"
-#define GAME_OVER_TTFF "font/game_over.ttf"
-#define TEST_WAV "audio/finish.wav"
-#define CORRECT_WAV "audio/correct.wav"
-#define BACKGROUND_PNG "img/background.png"
 
 /* FUNCTIONS */
 void printDebug(const char* str, int delay);

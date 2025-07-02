@@ -60,6 +60,7 @@ void drawHint(const char* text, float x, float y, float rectW, float rectH, TTF_
     drawRect(x + 5, y + 5, rectW - 10, rectH - 10, renderer, SDL_RECT_BORDER_COLOR.r, SDL_RECT_BORDER_COLOR.g, SDL_RECT_BORDER_COLOR.b, SDL_RECT_BORDER_COLOR.a, "border");
     
     int wrap_width = (int)rectW - 20;
+    drawWrappedText("Hint: ", x + 10, y + 10, font, SDL_RECT_BORDER_COLOR, renderer, wrap_width);
     drawWrappedText(text, x + 10, y + 30, font, SDL_RECT_BORDER_COLOR, renderer, wrap_width);
 }
 
@@ -179,13 +180,12 @@ void drawTime(Uint32 start_time, TTF_Font * font, SDL_Renderer* renderer) {
 
     float x = (WINDOW_WIDTH / 2) + 20;
     float y = WINDOW_HEIGHT / 2;
-    float rectW = (WINDOW_WIDTH / 2) - 50;
-    float rectH = (WINDOW_HEIGHT / 2 ) - 15;
+    float rectW = ((WINDOW_WIDTH / 2) - 50) - 20;
     int wrap_width = (int)rectW - 20;
 
     Uint32 current_ticks = SDL_GetTicks();
     Uint32 elapsedMS = current_ticks - start_time;
-    Uint32 elapsed_seconds = elapsed_seconds / 1000;
+    Uint32 elapsed_seconds = elapsedMS / 1000;
 
     // formatando o tewmpo pra min:seg
     int minutes = elapsed_seconds / 60;
@@ -195,5 +195,63 @@ void drawTime(Uint32 start_time, TTF_Font * font, SDL_Renderer* renderer) {
     snprintf(timeText, sizeof(timeText), "Time: %02d:%02d", minutes, seconds);
 
     SDL_Color SDL_TEXT_COLOR = { 255, 255, 255, 255 };
-    drawWrappedText(timeText, x, y, font, SDL_TEXT_COLOR, renderer, (int)rectW);
+    drawWrappedText(timeText, x + 10, y + 25, font, SDL_TEXT_COLOR, renderer, wrap_width);
+}
+
+void drawInstructionBox(TTF_Font* font, SDL_Renderer* renderer, GameAssets* assets) {
+    
+    SDL_Color SDL_GRAY = {  128, 128, 128, 200 };
+    SDL_Color SDL_WHITE = {  255, 255, 255, 255 };    
+    
+    float x = 10;
+    float y = 10;
+    float w = WINDOW_WIDTH;
+    float h = WINDOW_HEIGHT;
+
+    drawRect(x, y, w - 20, h - 20, renderer, SDL_GRAY.r, SDL_GRAY.g, SDL_GRAY.b, SDL_GRAY.a, "filled");
+    
+    x = x + 5;
+    y = y + 5;
+    float btn_w = 30;
+    float btn_h = 30;
+
+    #define POSY(y, w, multiplier, offset) (y + w * multiplier) + offset
+
+    RenderTexture(assets->cross_btn_texture, x, y, btn_w, btn_h, renderer);
+    drawTextWithFont("Press X to SELECT A WORD and MOVE TO RIGHT TO CHANGE A LETTER.", 60, y, font, renderer, SDL_WHITE, "high");
+
+    RenderTexture(assets->circle_btn_texture, x, POSY(y, btn_w, 1, 10), btn_w, btn_h, renderer);
+    RenderTexture(assets->triangle_btn_texture, x, POSY(y, btn_w, 2, 20), btn_w, btn_h, renderer);
+    RenderTexture(assets->square_btn_texture, x, POSY(y, btn_w, 3, 30), btn_w, btn_h, renderer);
+}
+
+SDL_Surface* initImage(const char* image) {
+    SDL_Surface *img_surface = IMG_Load(image);
+    if (!img_surface) {
+        printDebug(SDL_GetError(), 5000);
+        return NULL;
+    }
+    return img_surface;
+}
+
+SDL_Texture* createImageTexture(SDL_Surface *img_surface, SDL_Renderer* renderer) {
+    if (img_surface == NULL) return NULL;
+    
+    SDL_Texture *img_texture = SDL_CreateTextureFromSurface(renderer, img_surface);
+    SDL_DestroySurface(img_surface);
+
+    if (!img_texture) {
+        printDebug(SDL_GetError(), 5000);
+        return NULL; 
+    }
+    return img_texture;
+}
+
+void RenderTexture(SDL_Texture* texture, float x, float y, float w, float h, SDL_Renderer* renderer) {
+    SDL_FRect dest;
+    dest.x = x;
+    dest.y = y;
+    dest.w = w;
+    dest.h = h;
+    SDL_RenderTexture(renderer, texture, NULL, &dest);
 }

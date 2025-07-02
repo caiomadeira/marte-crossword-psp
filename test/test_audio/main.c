@@ -24,7 +24,8 @@ int main(int argc, char *argv[]) {
     // Lê o ficheiro byte a byte até chegar ao fim (EOF - End Of File)
     while ((byte = fgetc(file)) != EOF) {
         // Imprime o byte em formato hexadecimal com dois dígitos (ex: 0A, FF)
-        printf("%02x ", byte);
+        // printf("%02x ", byte);
+        printf("%c ", byte);
         bytes_na_linha++;
 
         // A cada 16 bytes, imprime uma nova linha para organizar a visualização

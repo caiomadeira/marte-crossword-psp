@@ -84,15 +84,29 @@ Grid* newGrid(int nrow, int ncol, GridArea* gridArea) {
     return grid;
 }
 
-void moveCellLetterSelection(Grid* grid) {
+void moveCellLetterSelection(Grid* grid, const char* direction) {
     if (grid == NULL) return;
 
     Cell* selected_cell = &grid->list_cells[grid->ai][grid->aj];
     char letter = selected_cell->player_letter;
 
-    if (letter == 'Z') selected_cell->player_letter = 'A';
-    else if (letter >= 'A' && letter < 'Z') selected_cell->player_letter++;
-    else selected_cell->player_letter = 'A';
+    // caso: celula vazia
+    if (letter < 'A' || letter > 'Z') { 
+        selected_cell->player_letter = 'A';
+    }
+    if (strcmp(direction, "right") == 0) {
+        if (letter == 'Z') {
+            selected_cell->player_letter = 'A';
+        } else {
+            selected_cell->player_letter++;
+        }
+    } else if (strcmp(direction, "left") == 0) {
+        if (letter == 'A') {
+            selected_cell->player_letter = 'Z';
+        } else {
+            selected_cell->player_letter--;
+        }
+    }
 }
 
 void print1d(char *v, int size) {

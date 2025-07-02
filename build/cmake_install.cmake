@@ -1,8 +1,8 @@
-# Install script for directory: /home/caiomadeits/Desktop/marte-crossword-psp
+# Install script for directory: /home/caiomadeira/Desktop/app-psp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/caiomadeits/pspdev/psp")
+  set(CMAKE_INSTALL_PREFIX "/home/caiomadeira/pspdev/psp")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,7 +34,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/home/caiomadeits/pspdev/bin/psp-objdump")
+  set(CMAKE_OBJDUMP "/home/caiomadeira/pspdev/bin/psp-objdump")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/caiomadeits/Desktop/marte-crossword-psp/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/caiomadeira/Desktop/app-psp/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

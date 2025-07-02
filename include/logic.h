@@ -55,7 +55,7 @@ void print1d(char *v, int size);
 Grid* newGrid(int nrow, int ncol, GridArea* gridArea);
 GridArea* newGridArea(int x, int y, int w, int h, int padding);
 void moveGridSelection(Grid* grid, Word* active_word, int d_row, int d_col);
-void moveCellLetterSelection(Grid* grid);
+void moveCellLetterSelection(Grid* grid, const char* direction);
 char* init_letters(int start, int end);
 void populateGridWithWords(Grid* grid, Word words[], int word_count);
 bool canPlaceWordAt(Grid* grid, const char* word, int row, int col, WordOrientation orientation);

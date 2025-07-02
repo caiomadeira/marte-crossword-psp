@@ -12,5 +12,9 @@ void drawWrappedText(const char *text, float x, float y, TTF_Font* font, SDL_Col
 void drawInfoBox(float x, float y, float rectW, float rectH, TTF_Font* font, SDL_Renderer* renderer);
 void drawScore(int score, TTF_Font* font, SDL_Renderer* renderer);
 void drawTime(Uint32 start_time, TTF_Font * font, SDL_Renderer* renderer);
+void drawInstructionBox(TTF_Font* font, SDL_Renderer* renderer, GameAssets* assets);
+SDL_Texture* createImageTexture(SDL_Surface *img_surface, SDL_Renderer* renderer);
+SDL_Surface* initImage(const char* image);
+void RenderTexture(SDL_Texture* texture, float x, float y, float w, float h, SDL_Renderer* renderer);
 
 #endif
