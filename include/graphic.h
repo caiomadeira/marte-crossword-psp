@@ -16,5 +16,6 @@ void drawInstructionBox(TTF_Font* font, SDL_Renderer* renderer, GameAssets* asse
 SDL_Texture* createImageTexture(SDL_Surface *img_surface, SDL_Renderer* renderer);
 SDL_Surface* initImage(const char* image);
 void RenderTexture(SDL_Texture* texture, float x, float y, float w, float h, SDL_Renderer* renderer);
+void drawInfoStr(const char* str, TTF_Font* font, SDL_Renderer* renderer);
 
 #endif

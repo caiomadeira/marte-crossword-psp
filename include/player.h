@@ -4,7 +4,7 @@
 #include "common.h"
 
 typedef struct player {
-    char name[40];
+    char* name;
     int score;
 } Player;
 

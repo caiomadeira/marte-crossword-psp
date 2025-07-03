@@ -31,6 +31,7 @@ CMakeFiles/RositaCrossword.dir/include/audio.c.obj: /home/caiomadeira/Desktop/ap
 CMakeFiles/RositaCrossword.dir/include/common.c.obj: /home/caiomadeira/Desktop/app-psp/include/common.c \
   /home/caiomadeira/Desktop/app-psp/include/assets.h \
   /home/caiomadeira/Desktop/app-psp/include/common.h \
+  /home/caiomadeira/Desktop/app-psp/include/constants.h \
   /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/limits.h \
   /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/stdarg.h \
   /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/stdbool.h \
@@ -182,11 +183,25 @@ CMakeFiles/RositaCrossword.dir/include/common.c.obj: /home/caiomadeira/Desktop/a
   /home/caiomadeira/pspdev/psp/sdk/include/pspthreadman.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psptypes.h \
   /home/caiomadeira/pspdev/psp/sdk/include/pspuser.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_avmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_gamesharing.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_htmlviewer.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_modules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_msgdialog.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netconf.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_osk.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_savedata.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_sysparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_usbmodules.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psputils.h
 
 CMakeFiles/RositaCrossword.dir/include/graphic.c.obj: /home/caiomadeira/Desktop/app-psp/include/graphic.c \
   /home/caiomadeira/Desktop/app-psp/include/assets.h \
   /home/caiomadeira/Desktop/app-psp/include/common.h \
+  /home/caiomadeira/Desktop/app-psp/include/constants.h \
   /home/caiomadeira/Desktop/app-psp/include/graphic.h \
   /home/caiomadeira/Desktop/app-psp/include/logic.h \
   /home/caiomadeira/Desktop/app-psp/include/player.h \
@@ -342,11 +357,25 @@ CMakeFiles/RositaCrossword.dir/include/graphic.c.obj: /home/caiomadeira/Desktop/
   /home/caiomadeira/pspdev/psp/sdk/include/pspthreadman.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psptypes.h \
   /home/caiomadeira/pspdev/psp/sdk/include/pspuser.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_avmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_gamesharing.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_htmlviewer.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_modules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_msgdialog.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netconf.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_osk.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_savedata.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_sysparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_usbmodules.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psputils.h
 
 CMakeFiles/RositaCrossword.dir/include/logic.c.obj: /home/caiomadeira/Desktop/app-psp/include/logic.c \
   /home/caiomadeira/Desktop/app-psp/include/assets.h \
   /home/caiomadeira/Desktop/app-psp/include/common.h \
+  /home/caiomadeira/Desktop/app-psp/include/constants.h \
   /home/caiomadeira/Desktop/app-psp/include/logic.h \
   /home/caiomadeira/Desktop/app-psp/include/words.h \
   /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/limits.h \
@@ -500,11 +529,25 @@ CMakeFiles/RositaCrossword.dir/include/logic.c.obj: /home/caiomadeira/Desktop/ap
   /home/caiomadeira/pspdev/psp/sdk/include/pspthreadman.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psptypes.h \
   /home/caiomadeira/pspdev/psp/sdk/include/pspuser.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_avmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_gamesharing.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_htmlviewer.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_modules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_msgdialog.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netconf.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_osk.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_savedata.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_sysparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_usbmodules.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psputils.h
 
 CMakeFiles/RositaCrossword.dir/include/player.c.obj: /home/caiomadeira/Desktop/app-psp/include/player.c \
   /home/caiomadeira/Desktop/app-psp/include/assets.h \
   /home/caiomadeira/Desktop/app-psp/include/common.h \
+  /home/caiomadeira/Desktop/app-psp/include/constants.h \
   /home/caiomadeira/Desktop/app-psp/include/player.h \
   /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/limits.h \
   /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/stdarg.h \
@@ -657,11 +700,25 @@ CMakeFiles/RositaCrossword.dir/include/player.c.obj: /home/caiomadeira/Desktop/a
   /home/caiomadeira/pspdev/psp/sdk/include/pspthreadman.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psptypes.h \
   /home/caiomadeira/pspdev/psp/sdk/include/pspuser.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_avmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_gamesharing.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_htmlviewer.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_modules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_msgdialog.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netconf.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_osk.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_savedata.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_sysparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_usbmodules.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psputils.h
 
 CMakeFiles/RositaCrossword.dir/include/words.c.obj: /home/caiomadeira/Desktop/app-psp/include/words.c \
   /home/caiomadeira/Desktop/app-psp/include/assets.h \
   /home/caiomadeira/Desktop/app-psp/include/common.h \
+  /home/caiomadeira/Desktop/app-psp/include/constants.h \
   /home/caiomadeira/Desktop/app-psp/include/words.h \
   /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/limits.h \
   /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/stdarg.h \
@@ -814,12 +871,26 @@ CMakeFiles/RositaCrossword.dir/include/words.c.obj: /home/caiomadeira/Desktop/ap
   /home/caiomadeira/pspdev/psp/sdk/include/pspthreadman.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psptypes.h \
   /home/caiomadeira/pspdev/psp/sdk/include/pspuser.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_avmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_gamesharing.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_htmlviewer.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_modules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_msgdialog.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netconf.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_osk.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_savedata.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_sysparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_usbmodules.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psputils.h
 
 CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/main.c \
   /home/caiomadeira/Desktop/app-psp/include/assets.h \
   /home/caiomadeira/Desktop/app-psp/include/audio.h \
   /home/caiomadeira/Desktop/app-psp/include/common.h \
+  /home/caiomadeira/Desktop/app-psp/include/constants.h \
   /home/caiomadeira/Desktop/app-psp/include/graphic.h \
   /home/caiomadeira/Desktop/app-psp/include/logic.h \
   /home/caiomadeira/Desktop/app-psp/include/player.h \
@@ -977,12 +1048,23 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
   /home/caiomadeira/pspdev/psp/sdk/include/pspthreadman.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psptypes.h \
   /home/caiomadeira/pspdev/psp/sdk/include/pspuser.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_avmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_gamesharing.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_htmlviewer.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_modules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_msgdialog.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netconf.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netmodules.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_netparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_osk.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_savedata.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_sysparam.h \
+  /home/caiomadeira/pspdev/psp/sdk/include/psputility_usbmodules.h \
   /home/caiomadeira/pspdev/psp/sdk/include/psputils.h
 
 
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_main_impl.h:
-
-/home/caiomadeira/pspdev/psp/include/SDL3/SDL_main.h:
 
 /home/caiomadeira/Desktop/app-psp/include/logic.c:
 
@@ -993,6 +1075,26 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 /home/caiomadeira/Desktop/app-psp/include/graphic.c:
 
 /home/caiomadeira/pspdev/psp/sdk/include/psputils.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_sysparam.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_osk.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_netparam.h:
+
+/home/caiomadeira/pspdev/psp/include/SDL3/SDL_main.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_netmodules.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_netconf.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_msgdialog.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_modules.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_gamesharing.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_avmodules.h:
 
 /home/caiomadeira/pspdev/psp/sdk/include/pspuser.h:
 
@@ -1026,11 +1128,15 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 
 /home/caiomadeira/pspdev/psp/sdk/include/pspdisplay.h:
 
+/home/caiomadeira/pspdev/psp/sdk/include/pspctrl.h:
+
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_hints.h:
 
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_haptic.h:
 
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_gamepad.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_savedata.h:
 
 /home/caiomadeira/pspdev/psp/include/time.h:
 
@@ -1096,15 +1202,9 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_scancode.h:
 
-/home/caiomadeira/pspdev/psp/sdk/include/pspctrl.h:
-
 /home/caiomadeira/pspdev/psp/include/limits.h:
 
 /home/caiomadeira/pspdev/psp/include/_ansi.h:
-
-/home/caiomadeira/pspdev/psp/include/SDL3/SDL_joystick.h:
-
-/home/caiomadeira/pspdev/psp/include/SDL3/SDL_error.h:
 
 /home/caiomadeira/pspdev/psp/include/machine/_default_types.h:
 
@@ -1124,12 +1224,6 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 
 /home/caiomadeira/pspdev/psp/include/sys/_timeval.h:
 
-/home/caiomadeira/Desktop/app-psp/include/graphic.h:
-
-/home/caiomadeira/pspdev/psp/include/sys/lock.h:
-
-/home/caiomadeira/pspdev/psp/include/math.h:
-
 /home/caiomadeira/pspdev/psp/include/machine/_types.h:
 
 /home/caiomadeira/pspdev/psp/sdk/include/pspkdebug.h:
@@ -1141,6 +1235,8 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 /home/caiomadeira/pspdev/psp/sdk/include/pspkerneltypes.h:
 
 /home/caiomadeira/Desktop/app-psp/include/audio.c:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_usbmodules.h:
 
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_events.h:
 
@@ -1157,6 +1253,16 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 /home/caiomadeira/pspdev/psp/include/sys/_types.h:
 
 /home/caiomadeira/pspdev/psp/include/machine/_endian.h:
+
+/home/caiomadeira/pspdev/psp/include/SDL3/SDL_error.h:
+
+/home/caiomadeira/Desktop/app-psp/include/graphic.h:
+
+/home/caiomadeira/pspdev/psp/include/math.h:
+
+/home/caiomadeira/pspdev/psp/include/sys/lock.h:
+
+/home/caiomadeira/pspdev/psp/include/SDL3/SDL_joystick.h:
 
 /home/caiomadeira/pspdev/lib/gcc/psp/15.1.1/include/stdbool.h:
 
@@ -1177,6 +1283,8 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_clipboard.h:
 
 /home/caiomadeira/Desktop/app-psp/include/common.c:
+
+/home/caiomadeira/Desktop/app-psp/include/constants.h:
 
 /home/caiomadeira/pspdev/psp/include/machine/ieeefp.h:
 
@@ -1225,6 +1333,8 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_endian.h:
 
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_pen.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility_htmlviewer.h:
 
 /home/caiomadeira/pspdev/psp/include/sys/string.h:
 
@@ -1281,6 +1391,8 @@ CMakeFiles/RositaCrossword.dir/main.c.obj: /home/caiomadeira/Desktop/app-psp/mai
 /home/caiomadeira/pspdev/psp/include/machine/endian.h:
 
 /home/caiomadeira/pspdev/psp/include/machine/time.h:
+
+/home/caiomadeira/pspdev/psp/sdk/include/psputility.h:
 
 /home/caiomadeira/pspdev/psp/include/SDL3/SDL_tray.h:
 

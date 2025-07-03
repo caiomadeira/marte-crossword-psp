@@ -1,0 +1,5 @@
+    #define CONTROLS_LABEL "CONTROLS"
+    #define CROSS_BTN_INSTRUCTION "SELECT a WORD or move to right to CHANGE a LETTER."
+    #define CIRCLE_BTN_INSTRUCTION "CHANGE orientation (changing the word)."
+    #define TRIANGLE_BTN_INSTRUCTION "BACK to WORD MODE."
+    #define SQUARE_BTN_INSTRUCTION "On LETTER MODE change LETTER direction to LEFT."

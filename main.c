@@ -112,13 +112,13 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
     // para renderização transparente
     SDL_SetRenderDrawBlendMode(a->renderer, SDL_BLENDMODE_BLEND);
 
-    a->font = TTF_OpenFont(GAME_OVER_TTF, 80);
+    a->font = TTF_OpenFont(GAME_OVER_TTF, 60);
     if (a->font == NULL) {
         printDebug(SDL_GetError(), 5000);
         return SDL_APP_FAILURE;
     }
 
-    a->hint_font = TTF_OpenFont(GAME_OVER_TTF, 40);
+    a->hint_font = TTF_OpenFont(GAME_OVER_TTF, 30);
     if (a->hint_font == NULL) {
         printDebug(SDL_GetError(), 5000);
         return SDL_APP_FAILURE;
@@ -166,6 +166,11 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
     if (a->player == NULL) {
         printDebug(SDL_GetError(), 5000);
         return SDL_APP_FAILURE;
+    }
+
+    int result = sceUtilityGetSystemParamString(PSP_SYSTEMPARAM_ID_STRING_NICKNAME, a->player->name, 128);
+    if (result != 0) {
+        strcpy(a->player->name, "Player");
     }
 
     #define CENTRALIZED false
@@ -337,6 +342,7 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     drawInfoBox(x, y, rectW, rectH, a->hint_font, a->renderer);
     drawScore(a->player->score, a->hint_font, a->renderer);
     drawTime(a->start_time, a->hint_font, a->renderer);
+    drawInfoStr(a->player->name, a->hint_font, a->renderer);
 
     if (a->pad.Buttons & PSP_CTRL_LTRIGGER) {
         drawInstructionBox(a->hint_font, a->renderer, &a->assets);

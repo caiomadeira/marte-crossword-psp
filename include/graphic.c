@@ -86,6 +86,17 @@ void drawScore(int score, TTF_Font* font, SDL_Renderer* renderer) {
     drawWrappedText(scoreText, x + 10, y + 10, font, SDL_RECT_BORDER_COLOR, renderer, wrap_width);
 }
 
+void drawInfoStr(const char* str, TTF_Font* font, SDL_Renderer* renderer) {
+    SDL_Color SDL_WHITE = { 255, 255, 255, 255 };
+    float x = (WINDOW_WIDTH / 2) + 20;
+    float y = (WINDOW_HEIGHT / 2) + 35;
+    float rectW = (WINDOW_WIDTH / 2) - 50;
+    float rectH = (WINDOW_HEIGHT / 2 ) - 15;
+    int wrap_width = (int)rectW - 20;
+
+    drawWrappedText(str, x + 10, y + 10, font, SDL_WHITE, renderer, wrap_width);
+}
+
 void drawWrappedText(const char *text, float x, float y, TTF_Font* font, SDL_Color fg, SDL_Renderer* renderer, int wrap_width_px) {
     if (text == NULL || font == NULL) return;
     SDL_Surface *s = TTF_RenderText_Blended_Wrapped(font, text, strlen(text), fg, wrap_width_px);
@@ -214,15 +225,22 @@ void drawInstructionBox(TTF_Font* font, SDL_Renderer* renderer, GameAssets* asse
     y = y + 5;
     float btn_w = 30;
     float btn_h = 30;
+    int wrap_width = (int)btn_w - 20;
 
     #define POSY(y, w, multiplier, offset) (y + w * multiplier) + offset
 
-    RenderTexture(assets->cross_btn_texture, x, y, btn_w, btn_h, renderer);
-    drawTextWithFont("Press X to SELECT A WORD and MOVE TO RIGHT TO CHANGE A LETTER.", 60, y, font, renderer, SDL_WHITE, "high");
+    drawTextWithFont(CONTROLS_LABEL, 15, y + 5, font, renderer, SDL_WHITE, "high");
+    drawTextWithFont(CROSS_BTN_INSTRUCTION, 60, y + strlen(CONTROLS_LABEL) + 40, font, renderer, SDL_WHITE, "high");
+    drawTextWithFont(CIRCLE_BTN_INSTRUCTION, 60, y + strlen(CONTROLS_LABEL) + strlen(CROSS_BTN_INSTRUCTION) + 30, font, renderer, SDL_WHITE, "high");
+    drawTextWithFont(TRIANGLE_BTN_INSTRUCTION, 60, y + strlen(CONTROLS_LABEL) + strlen(CROSS_BTN_INSTRUCTION) + strlen(CIRCLE_BTN_INSTRUCTION) + 30, font, renderer, SDL_WHITE, "high");
+    drawTextWithFont(SQUARE_BTN_INSTRUCTION, 60, y + strlen(CONTROLS_LABEL) + strlen(CROSS_BTN_INSTRUCTION) + strlen(CIRCLE_BTN_INSTRUCTION) + strlen(TRIANGLE_BTN_INSTRUCTION) + 50, font, renderer, SDL_WHITE, "high");
 
-    RenderTexture(assets->circle_btn_texture, x, POSY(y, btn_w, 1, 10), btn_w, btn_h, renderer);
-    RenderTexture(assets->triangle_btn_texture, x, POSY(y, btn_w, 2, 20), btn_w, btn_h, renderer);
-    RenderTexture(assets->square_btn_texture, x, POSY(y, btn_w, 3, 30), btn_w, btn_h, renderer);
+    RenderTexture(assets->cross_btn_texture, x, y + 40, btn_w, btn_h, renderer);
+    RenderTexture(assets->circle_btn_texture, x, POSY(y, btn_w, 1, 50), btn_w, btn_h, renderer);
+    RenderTexture(assets->triangle_btn_texture, x, POSY(y, btn_w, 2, 60), btn_w, btn_h, renderer);
+    RenderTexture(assets->square_btn_texture, x, POSY(y, btn_w, 3, 70), btn_w, btn_h, renderer);
+
+    drawTextWithFont("Start: back to menu.", 60, y + strlen(CONTROLS_LABEL) + strlen(CROSS_BTN_INSTRUCTION) + strlen(CIRCLE_BTN_INSTRUCTION) + strlen(TRIANGLE_BTN_INSTRUCTION) + strlen(SQUARE_BTN_INSTRUCTION) + 40, font, renderer, SDL_WHITE, "high");
 }
 
 SDL_Surface* initImage(const char* image) {

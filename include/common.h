@@ -1,6 +1,9 @@
 #ifndef common_h
 #define common_h
 
+#include "assets.h"
+#include "constants.h"
+
 #include <SDL3_ttf/SDL_ttf.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3/SDL_oldnames.h>
@@ -16,7 +19,6 @@
 #include <string.h> // Necessário para a função strrchr()
 #include <ctype.h>
 #include <stddef.h> // para o NULL
-#include "assets.h"
 // -------------------------
 // PSP
 #include <pspkernel.h>
@@ -25,9 +27,9 @@
 #include <pspdisplay.h>
 #include <pspdebug.h>
 #include <pspctrl.h>
-#include<pspaudio.h>
-#include<pspaudiolib.h>
-
+#include <pspaudio.h>
+#include <pspaudiolib.h>
+#include <psputility.h>
 
 // REDEFINING FUNCTIONS NAME
 #define readButtonState sceCtrlReadBufferPositive
