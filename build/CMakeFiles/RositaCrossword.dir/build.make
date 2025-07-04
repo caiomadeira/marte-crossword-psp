@@ -167,6 +167,34 @@ CMakeFiles/RositaCrossword.dir/include/words.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/RositaCrossword.dir/include/words.c.s"
 	/home/caiomadeira/pspdev/bin/psp-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/caiomadeira/Desktop/app-psp/include/words.c -o CMakeFiles/RositaCrossword.dir/include/words.c.s
 
+CMakeFiles/RositaCrossword.dir/include/game.c.obj: CMakeFiles/RositaCrossword.dir/flags.make
+CMakeFiles/RositaCrossword.dir/include/game.c.obj: /home/caiomadeira/Desktop/app-psp/include/game.c
+CMakeFiles/RositaCrossword.dir/include/game.c.obj: CMakeFiles/RositaCrossword.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/caiomadeira/Desktop/app-psp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/RositaCrossword.dir/include/game.c.obj"
+	/home/caiomadeira/pspdev/bin/psp-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/RositaCrossword.dir/include/game.c.obj -MF CMakeFiles/RositaCrossword.dir/include/game.c.obj.d -o CMakeFiles/RositaCrossword.dir/include/game.c.obj -c /home/caiomadeira/Desktop/app-psp/include/game.c
+
+CMakeFiles/RositaCrossword.dir/include/game.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/RositaCrossword.dir/include/game.c.i"
+	/home/caiomadeira/pspdev/bin/psp-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/caiomadeira/Desktop/app-psp/include/game.c > CMakeFiles/RositaCrossword.dir/include/game.c.i
+
+CMakeFiles/RositaCrossword.dir/include/game.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/RositaCrossword.dir/include/game.c.s"
+	/home/caiomadeira/pspdev/bin/psp-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/caiomadeira/Desktop/app-psp/include/game.c -o CMakeFiles/RositaCrossword.dir/include/game.c.s
+
+CMakeFiles/RositaCrossword.dir/include/menu.c.obj: CMakeFiles/RositaCrossword.dir/flags.make
+CMakeFiles/RositaCrossword.dir/include/menu.c.obj: /home/caiomadeira/Desktop/app-psp/include/menu.c
+CMakeFiles/RositaCrossword.dir/include/menu.c.obj: CMakeFiles/RositaCrossword.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/caiomadeira/Desktop/app-psp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/RositaCrossword.dir/include/menu.c.obj"
+	/home/caiomadeira/pspdev/bin/psp-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/RositaCrossword.dir/include/menu.c.obj -MF CMakeFiles/RositaCrossword.dir/include/menu.c.obj.d -o CMakeFiles/RositaCrossword.dir/include/menu.c.obj -c /home/caiomadeira/Desktop/app-psp/include/menu.c
+
+CMakeFiles/RositaCrossword.dir/include/menu.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/RositaCrossword.dir/include/menu.c.i"
+	/home/caiomadeira/pspdev/bin/psp-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/caiomadeira/Desktop/app-psp/include/menu.c > CMakeFiles/RositaCrossword.dir/include/menu.c.i
+
+CMakeFiles/RositaCrossword.dir/include/menu.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/RositaCrossword.dir/include/menu.c.s"
+	/home/caiomadeira/pspdev/bin/psp-gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/caiomadeira/Desktop/app-psp/include/menu.c -o CMakeFiles/RositaCrossword.dir/include/menu.c.s
+
 # Object files for target RositaCrossword
 RositaCrossword_OBJECTS = \
 "CMakeFiles/RositaCrossword.dir/main.c.obj" \
@@ -175,7 +203,9 @@ RositaCrossword_OBJECTS = \
 "CMakeFiles/RositaCrossword.dir/include/audio.c.obj" \
 "CMakeFiles/RositaCrossword.dir/include/common.c.obj" \
 "CMakeFiles/RositaCrossword.dir/include/logic.c.obj" \
-"CMakeFiles/RositaCrossword.dir/include/words.c.obj"
+"CMakeFiles/RositaCrossword.dir/include/words.c.obj" \
+"CMakeFiles/RositaCrossword.dir/include/game.c.obj" \
+"CMakeFiles/RositaCrossword.dir/include/menu.c.obj"
 
 # External object files for target RositaCrossword
 RositaCrossword_EXTERNAL_OBJECTS =
@@ -187,9 +217,11 @@ RositaCrossword: CMakeFiles/RositaCrossword.dir/include/audio.c.obj
 RositaCrossword: CMakeFiles/RositaCrossword.dir/include/common.c.obj
 RositaCrossword: CMakeFiles/RositaCrossword.dir/include/logic.c.obj
 RositaCrossword: CMakeFiles/RositaCrossword.dir/include/words.c.obj
+RositaCrossword: CMakeFiles/RositaCrossword.dir/include/game.c.obj
+RositaCrossword: CMakeFiles/RositaCrossword.dir/include/menu.c.obj
 RositaCrossword: CMakeFiles/RositaCrossword.dir/build.make
 RositaCrossword: CMakeFiles/RositaCrossword.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/caiomadeira/Desktop/app-psp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable RositaCrossword"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/caiomadeira/Desktop/app-psp/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable RositaCrossword"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RositaCrossword.dir/link.txt --verbose=$(VERBOSE)
 	/usr/bin/cmake -E cmake_echo_color --cyan Not\ stripping\ binary\ for\ target\ RositaCrossword,\ build\ type\ is\ .
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Calling psp-fixup-imports for target RositaCrossword"

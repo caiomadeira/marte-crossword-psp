@@ -46,12 +46,6 @@
 #define RAW_DARK_RED 0xFF102080
 #define RAW_CLEAR_GRAY 0xFF554433
 
-/* STRUCT PROTOTYPES */
-typedef enum {
-    SCREEN_MENU,
-    SCREEN_NEW_GAME
-} GameState;
-
 /* CONSTANTS */
 #define WINDOW_NAME "PSP GAME"
 #define WINDOW_WIDTH 480

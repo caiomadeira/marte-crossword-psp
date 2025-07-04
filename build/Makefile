@@ -190,6 +190,30 @@ include/common.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/common.c.s
 .PHONY : include/common.c.s
 
+include/game.obj: include/game.c.obj
+.PHONY : include/game.obj
+
+# target to build an object file
+include/game.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/game.c.obj
+.PHONY : include/game.c.obj
+
+include/game.i: include/game.c.i
+.PHONY : include/game.i
+
+# target to preprocess a source file
+include/game.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/game.c.i
+.PHONY : include/game.c.i
+
+include/game.s: include/game.c.s
+.PHONY : include/game.s
+
+# target to generate assembly for a file
+include/game.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/game.c.s
+.PHONY : include/game.c.s
+
 include/graphic.obj: include/graphic.c.obj
 .PHONY : include/graphic.obj
 
@@ -237,6 +261,30 @@ include/logic.s: include/logic.c.s
 include/logic.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/logic.c.s
 .PHONY : include/logic.c.s
+
+include/menu.obj: include/menu.c.obj
+.PHONY : include/menu.obj
+
+# target to build an object file
+include/menu.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/menu.c.obj
+.PHONY : include/menu.c.obj
+
+include/menu.i: include/menu.c.i
+.PHONY : include/menu.i
+
+# target to preprocess a source file
+include/menu.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/menu.c.i
+.PHONY : include/menu.c.i
+
+include/menu.s: include/menu.c.s
+.PHONY : include/menu.s
+
+# target to generate assembly for a file
+include/menu.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/menu.c.s
+.PHONY : include/menu.c.s
 
 include/player.obj: include/player.c.obj
 .PHONY : include/player.obj
@@ -326,12 +374,18 @@ help:
 	@echo "... include/common.obj"
 	@echo "... include/common.i"
 	@echo "... include/common.s"
+	@echo "... include/game.obj"
+	@echo "... include/game.i"
+	@echo "... include/game.s"
 	@echo "... include/graphic.obj"
 	@echo "... include/graphic.i"
 	@echo "... include/graphic.s"
 	@echo "... include/logic.obj"
 	@echo "... include/logic.i"
 	@echo "... include/logic.s"
+	@echo "... include/menu.obj"
+	@echo "... include/menu.i"
+	@echo "... include/menu.s"
 	@echo "... include/player.obj"
 	@echo "... include/player.i"
 	@echo "... include/player.s"

@@ -10,6 +10,8 @@ add_executable(${PROJECT_NAME}
     include/common.c
     include/logic.c
     include/words.c
+    include/game.c
+    include/menu.c
 )
 
 set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/assets)
