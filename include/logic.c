@@ -37,50 +37,61 @@ void moveGridSelection(Grid* grid, Word* active_word, int d_row, int d_col) {
 }
 
 Grid* newGrid(int nrow, int ncol, GridArea* gridArea) {
+    // 1. Aloca a estrutura principal
     Grid* grid = (Grid*)malloc(sizeof(Grid));
     if (grid == NULL) return NULL;
 
+    // 2. Inicializa todos os ponteiros como NULL para segurança
+    grid->gridArea = NULL;
+    grid->list_cells = NULL;
+    grid->font = NULL;
+
+    // 3. Atribui os valores
     grid->nrow = nrow;
     grid->ncol = ncol;
     grid->ai = 0;
     grid->aj = 0;
-    grid->font = NULL;
     grid->font_size = 45;
+    grid->gridArea = gridArea;
 
-    // alloc 2D matrix of cells
-    grid->list_cells = (Cell**)SDL_malloc(nrow*sizeof(Cell*));
+    // 4. Aloca o array de ponteiros para as linhas
+    grid->list_cells = (Cell**)malloc(nrow * sizeof(Cell*));
     if (grid->list_cells == NULL) {
-        SDL_free(grid);
+        free(grid->gridArea); // Libera a área que já foi associada
+        free(grid);           // Libera a struct
         return NULL;
     }
-    for(int i = 0; i < nrow; i++) {
-        grid->list_cells[i] = (Cell*)SDL_calloc(ncol, sizeof(Cell));
+
+    // 5. Aloca cada linha, com limpeza completa em caso de falha
+    for (int i = 0; i < nrow; i++) {
+        grid->list_cells[i] = (Cell*)calloc(ncol, sizeof(Cell));
         if (grid->list_cells[i] == NULL) {
-            // codigo pra limpeza que nao quero escrever agora
+            // LIMPEZA CRÍTICA: libera tudo que foi alocado até agora
+            for (int j = 0; j < i; j++) {
+                free(grid->list_cells[j]); // Libera as linhas bem-sucedidas
+            }
+            free(grid->list_cells);     // Libera o array de ponteiros
+            free(grid->gridArea);       // Libera a área
+            free(grid);                 // Libera a struct principal
+            return NULL; // Retorna com segurança
         }
     }
 
-    // define a gridArea (struct com os dados das dimensoes)
-    grid->gridArea = gridArea;
-    float cell_w = grid->gridArea->w / ncol;
-    float cell_h = grid->gridArea->h / nrow;
-
-    for(int i = 0; i < nrow; i++) {
-        for(int j = 0; j < ncol; j++) {
+    // 6. Inicializa as células
+    float cell_w = (float)grid->gridArea->w / ncol;
+    float cell_h = (float)grid->gridArea->h / nrow;
+    for (int i = 0; i < nrow; i++) {
+        for (int j = 0; j < ncol; j++) {
             Cell* cell = &grid->list_cells[i][j];
-
-            // relativo ao tamanho da celula (- padding)
             cell->w = cell_w - grid->gridArea->padding;
             cell->h = cell_h - grid->gridArea->padding;
-
-            // relativo a posicao com base no indice e no tamanho da celula
             cell->x = grid->gridArea->x + (j * cell_w) + (grid->gridArea->padding / 2.0f);
             cell->y = grid->gridArea->y + (i * cell_h) + (grid->gridArea->padding / 2.0f);
-
             cell->solution_letter = '\0';
             cell->player_letter = ' ';
         }
     }
+
     return grid;
 }
 
@@ -259,4 +270,42 @@ bool checkWordCompletion(Grid* grid, Word* word) {
         }
     }
     return true;
+}
+
+// game.c
+
+void destroyGrid(Grid* grid) {
+    if (grid == NULL) return;
+
+    // Libera as texturas de letras cacheadas
+    for (int i = 0; i < 26; i++) {
+        if (grid->letter_textures_cache[i]) {
+            SDL_DestroyTexture(grid->letter_textures_cache[i]);
+        }
+    }
+
+    // Libera a fonte do grid
+    if (grid->font) {
+        TTF_CloseFont(grid->font);
+    }
+
+    // Libera a matriz de células de forma segura
+    if (grid->list_cells) {
+        // Libera cada linha primeiro
+        for (int i = 0; i < grid->nrow; i++) {
+            if (grid->list_cells[i]) {
+                free(grid->list_cells[i]);
+            }
+        }
+        // Depois libera o array de ponteiros
+        free(grid->list_cells);
+    }
+
+    // Libera a área do grid
+    if (grid->gridArea) {
+        free(grid->gridArea);
+    }
+
+    // Finalmente, libera a própria estrutura do grid
+    free(grid);
 }

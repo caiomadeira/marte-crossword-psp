@@ -4,6 +4,7 @@
 #include "player.h"
 #include "audio.h"
 
+
 static void game_init(app_t *a);
 static void game_handle_events(app_t *a);
 static void game_update(app_t *a);
@@ -106,38 +107,61 @@ static void navigateInWordMode(GameData* data, int d_row, int d_col) {
 static void game_init(app_t *a) {
     GameData *data = (GameData*)malloc(sizeof(GameData));
     if (!data) {
+        printDebug(SDL_GetError(), 5000);
         a->running = 0;
         return;
     }
 
-    a->screen_data = data;
+    // limpando a memoria pra evitar lixo no ponteiro
+    memset(data, 0, sizeof(GameData));
+    //a->screen_data = data;
 
     SDL_Surface *bg_surface = initImage(BACKGROUND_PNG);
     if (!bg_surface) {
         data->background_texture = NULL;
+        printDebug(SDL_GetError(), 5000);
+        a->running = 0;
+        return;
     } else {
         data->background_texture = createImageTexture(bg_surface, a->renderer);
     }
 
     SDL_Surface *cross_btn_surface = initImage(CROSS_BUTTON_PNG);
     data->assets.cross_btn_texture = createImageTexture(cross_btn_surface, a->renderer);
-    if (!data->assets.cross_btn_texture) return;
+    if (!data->assets.cross_btn_texture) {
+        printDebug(SDL_GetError(), 5000);
+        a->running = 0;
+        return;
+    }
 
     SDL_Surface *square_btn_surface = initImage(SQUARE_BUTTON_PNG);
     data->assets.square_btn_texture = createImageTexture(square_btn_surface, a->renderer);
-    if (!data->assets.square_btn_texture) return;
+    if (!data->assets.square_btn_texture) {
+        printDebug(SDL_GetError(), 5000);
+        a->running = 0;
+        return;
+    }
 
     SDL_Surface *triangle_btn_surface = initImage(TRIANGLE_BUTTON_PNG);
     data->assets.triangle_btn_texture = createImageTexture(triangle_btn_surface, a->renderer);
-    if (!data->assets.triangle_btn_texture) return;
+    if (!data->assets.triangle_btn_texture) {
+        printDebug(SDL_GetError(), 5000);
+        a->running = 0;
+        return;
+    }
 
     SDL_Surface *circle_btn_surface = initImage(CIRCLE_BUTTON_PNG);
     data->assets.circle_btn_texture = createImageTexture(circle_btn_surface, a->renderer);
-    if (!data->assets.circle_btn_texture) return;
+    if (!data->assets.circle_btn_texture) {
+        printDebug(SDL_GetError(), 5000);
+        a->running = 0;
+        return;
+    }
 
     data->player = init_player();
     if (data->player == NULL) {
         printDebug(SDL_GetError(), 5000);
+        a->running = 0;
         return;
     }
 
@@ -148,6 +172,7 @@ static void game_init(app_t *a) {
 
     #define CENTRALIZED false
     int grid_width, grid_height, grid_pos_x, grid_pos_y, padding = 0;
+
     if (CENTRALIZED) {
         grid_width = WINDOW_WIDTH / 2;
         grid_height = WINDOW_HEIGHT - 15;
@@ -165,6 +190,7 @@ static void game_init(app_t *a) {
     data->grid = newGrid(10, 10, gridArea);
     if (data->grid == NULL) {
         printDebug(SDL_GetError(), 5000);
+        a->running = 0;
         return;
     }
 
@@ -183,9 +209,11 @@ static void game_init(app_t *a) {
     data->grid->font = TTF_OpenFont(GAME_OVER_TTF, data->grid->font_size);
     if (data->grid->font == NULL) {
         printDebug(SDL_GetError(), 5000);
+        a->running = 0;
         return;
     }
 
+    // erro aqui provavelmente
     /* LETTERS PRE-RENDERIZATION */
     SDL_Color SDL_BLACK = { 0, 0, 0, 255 };
     for(int i = 0; i < 26; i++) {
@@ -195,9 +223,18 @@ static void game_init(app_t *a) {
             data->grid->letter_textures_cache[i] = SDL_CreateTextureFromSurface(a->renderer, surface);
             SDL_DestroySurface(surface);
         } else {
+            // printDebug(SDL_GetError(), 20000);
             data->grid->letter_textures_cache[i] = NULL;
+            // a->running = 0;
+            //return;
         }
     }
+
+    SDL_SetRenderDrawColor(a->renderer, 255, 0, 0, 255); // Cor VERMELHA
+    SDL_RenderClear(a->renderer);
+    SDL_RenderPresent(a->renderer);
+    SDL_Delay(1000); // Pausa por 1 segundo
+
     updateCurrentHint(data); // evita o bug da hint nao aparecer ao iniciar
     // INIT TIMER
     data->start_time = SDL_GetTicks(); // NOTA: SDL_GetTicks() retorna o num de milissegundos desde que a biblioteca SDL foi inicializada.
@@ -207,6 +244,7 @@ static void game_init(app_t *a) {
 static void game_handle_events(app_t *a) {
     GameData *data = (GameData*)a->screen_data;
     if (!data) {
+        printDebug(SDL_GetError(), 5000);
         a->running = 0;
         return;
     }
@@ -298,7 +336,11 @@ static void game_update(app_t *a) {
 
 static void game_render(app_t *a) {
     GameData *data = (GameData*)a->screen_data;
-    if (!data) return;
+    if (!data) {
+        printDebug(SDL_GetError(), 5000);
+        a->running = 0;
+        return;
+    };
     SDL_SetRenderDrawColor(a->renderer, 0, 0, 0, 255);
     SDL_RenderClear(a->renderer);
     SDL_RenderTexture(a->renderer, data->background_texture, NULL, NULL);
@@ -325,21 +367,6 @@ static void game_render(app_t *a) {
     SDL_RenderPresent(a->renderer); // mostra na tela tudo o que foi desenhado    
 }
 
-// Em algum lugar (talvez no seu arquivo grid.c)
-void destroyGrid(Grid* grid) {
-    if (!grid) return;
-    if (grid->font) TTF_CloseFont(grid->font);
-    for (int i = 0; i < 26; i++) {
-        if (grid->letter_textures_cache[i]) {
-            SDL_DestroyTexture(grid->letter_textures_cache[i]);
-        }
-    }
-    if (grid->gridArea) free(grid->gridArea);
-    free(grid);
-}
-
-// Em game.c
-
 static void game_destroy(app_t *app) {
     GameData *data = (GameData*)app->screen_data;
     if (data) {
@@ -357,21 +384,6 @@ static void game_destroy(app_t *app) {
 
         // 3. Liberar a Grid e seus recursos internos (IMPORTANTE)
         if (data->grid) {
-            // Primeiro, feche a fonte que a grid usa
-            if (data->grid->font) {
-                TTF_CloseFont(data->grid->font);
-            }
-            // Depois, destrua as texturas de letras pré-renderizadas
-            for (int i = 0; i < 26; i++) {
-                if (data->grid->letter_textures_cache[i]) {
-                    SDL_DestroyTexture(data->grid->letter_textures_cache[i]);
-                }
-            }
-            // Libere a memória da GridArea (se foi alocada dinamicamente)
-            if (data->grid->gridArea) {
-                free(data->grid->gridArea);
-            }
-            // Finalmente, libere a própria struct da grid
             destroyGrid(data->grid);
         }
         

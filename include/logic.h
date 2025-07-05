@@ -61,5 +61,6 @@ void populateGridWithWords(Grid* grid, Word words[], int word_count);
 bool canPlaceWordAt(Grid* grid, const char* word, int row, int col, WordOrientation orientation);
 bool placeWord(Grid* grid, Word* selected_word);
 bool checkWordCompletion(Grid* grid, Word* word);
+void destroyGrid(Grid* grid);
 
 #endif
