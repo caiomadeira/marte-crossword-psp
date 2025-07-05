@@ -104,21 +104,21 @@ static void menu_render(app_t *app) {
     SDL_RenderClear(app->renderer);
     SDL_RenderTexture(app->renderer, data->background_texture, NULL, NULL);
 
-    const char* option1 = "  Play";
-    const char* option2 = " Options";
-    const char* option3 = " Sair";
+    // const char* option1 = "  Play";
+    // const char* option2 = " Options";
+    // const char* option3 = " Sair";
 
-    if (data->menu_option == 0) {
-        option1 = "> Play";
-    } else if (data->menu_option == 1) {
-        option2 = "> Options";
-    } else if (data->menu_option == 2) {
-        option3 = "> Sair";
-    }
+    // if (data->menu_option == 0) {
+    //     option1 = "> Play";
+    // } else if (data->menu_option == 1) {
+    //     option2 = "> Options";
+    // } else if (data->menu_option == 2) {
+    //     option3 = "> Sair";
+    // }
 
-    drawTextWithFont(option1, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2), app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
-    drawTextWithFont(option2, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2) + 30, app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
-    drawTextWithFont(option3, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2) + (30*2), app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
+    // drawTextWithFont(option1, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2), app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
+    // drawTextWithFont(option2, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2) + 30, app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
+    // drawTextWithFont(option3, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2) + (30*2), app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
 
     SDL_RenderPresent(app->renderer);
 }

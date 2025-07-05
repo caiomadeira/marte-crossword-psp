@@ -206,19 +206,21 @@ static void game_init(app_t *a) {
         data->grid->aj = data->selected_word->pos_final_j;
     }
 
-    data->grid->font = TTF_OpenFont(GAME_OVER_TTF, data->grid->font_size);
-    if (data->grid->font == NULL) {
-        printDebug(SDL_GetError(), 5000);
-        a->running = 0;
-        return;
-    }
+    // data->grid->font = TTF_OpenFont(GAME_OVER_TTF, data->grid->font_size);
+    // if (data->grid->font == NULL) {
+    //     printDebug(SDL_GetError(), 5000);
+    //     a->running = 0;
+    //     return;
+    // }
+
+    data->grid->font = a->hint_font;
 
     // erro aqui provavelmente
     /* LETTERS PRE-RENDERIZATION */
     SDL_Color SDL_BLACK = { 0, 0, 0, 255 };
     for(int i = 0; i < 26; i++) {
         char letter_str[2] = { (char)('A' + i), '\0' };
-        SDL_Surface* surface = TTF_RenderText_Blended(data->grid->font, letter_str, strlen(letter_str), SDL_BLACK);
+        SDL_Surface* surface = TTF_RenderText_Blended(a->hint_font, letter_str, strlen(letter_str), SDL_BLACK);
         if (surface) {
             data->grid->letter_textures_cache[i] = SDL_CreateTextureFromSurface(a->renderer, surface);
             SDL_DestroySurface(surface);
@@ -229,11 +231,6 @@ static void game_init(app_t *a) {
             //return;
         }
     }
-
-    SDL_SetRenderDrawColor(a->renderer, 255, 0, 0, 255); // Cor VERMELHA
-    SDL_RenderClear(a->renderer);
-    SDL_RenderPresent(a->renderer);
-    SDL_Delay(1000); // Pausa por 1 segundo
 
     updateCurrentHint(data); // evita o bug da hint nao aparecer ao iniciar
     // INIT TIMER

@@ -272,40 +272,58 @@ bool checkWordCompletion(Grid* grid, Word* word) {
     return true;
 }
 
-// game.c
+// // game.c
+
+// void destroyGrid(Grid* grid) {
+//     if (grid == NULL) return;
+
+//     // Libera as texturas de letras cacheadas
+//     for (int i = 0; i < 26; i++) {
+//         if (grid->letter_textures_cache[i]) {
+//             SDL_DestroyTexture(grid->letter_textures_cache[i]);
+//         }
+//     }
+
+//     // Libera a fonte do grid
+//     if (grid->font) {
+//         TTF_CloseFont(grid->font);
+//     }
+
+//     // Libera a matriz de células de forma segura
+//     if (grid->list_cells) {
+//         // Libera cada linha primeiro
+//         for (int i = 0; i < grid->nrow; i++) {
+//             if (grid->list_cells[i]) {
+//                 free(grid->list_cells[i]);
+//             }
+//         }
+//         // Depois libera o array de ponteiros
+//         free(grid->list_cells);
+//     }
+
+//     // Libera a área do grid
+//     if (grid->gridArea) {
+//         free(grid->gridArea);
+//     }
+
+//     // Finalmente, libera a própria estrutura do grid
+//     free(grid);
+// }
 
 void destroyGrid(Grid* grid) {
     if (grid == NULL) return;
-
-    // Libera as texturas de letras cacheadas
+    if (grid->font) TTF_CloseFont(grid->font);
     for (int i = 0; i < 26; i++) {
         if (grid->letter_textures_cache[i]) {
             SDL_DestroyTexture(grid->letter_textures_cache[i]);
         }
     }
-
-    // Libera a fonte do grid
-    if (grid->font) {
-        TTF_CloseFont(grid->font);
-    }
-
-    // Libera a matriz de células de forma segura
     if (grid->list_cells) {
-        // Libera cada linha primeiro
         for (int i = 0; i < grid->nrow; i++) {
-            if (grid->list_cells[i]) {
-                free(grid->list_cells[i]);
-            }
+            if (grid->list_cells[i]) free(grid->list_cells[i]);
         }
-        // Depois libera o array de ponteiros
         free(grid->list_cells);
     }
-
-    // Libera a área do grid
-    if (grid->gridArea) {
-        free(grid->gridArea);
-    }
-
-    // Finalmente, libera a própria estrutura do grid
+    if (grid->gridArea) free(grid->gridArea);
     free(grid);
 }
