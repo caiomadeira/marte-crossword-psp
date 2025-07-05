@@ -26,6 +26,8 @@ typedef struct {
     int menu_option;
 } MenuData;
 
+#define TOTAL_MENU_OPTIONS 3
+
 void set_screen(app_t *app, Screen * new_screen) {
     /* Se já existe uma tela chama a funcao destroy pra limpar tudo */
     if (app->current_screen != NULL && app->current_screen->destroy != NULL) {
@@ -57,13 +59,29 @@ static void menu_init(app_t *app) {
 }
 
 static void menu_handle_events(app_t *app) {
-    readButtonState(&app->pad, 1);
-
-    if ((app->pad.Buttons & PSP_CTRL_CROSS) && !(app->prev_pad.Buttons & PSP_CTRL_CROSS)) {
-        set_screen(app, &GAME_SCREEN);
+    MenuData *data = (MenuData*)app->screen_data;
+    if (!data) {
+        app->running = 0;
+        return;
     }
 
-    // TODO: navegar pelos botoes logica
+    readButtonState(&app->pad, 1);
+    if ((app->pad.Buttons & PSP_CTRL_DOWN) && !(app->prev_pad.Buttons & PSP_CTRL_DOWN)) {
+        data->menu_option = (data->menu_option + 1) % TOTAL_MENU_OPTIONS;
+    }
+
+    if ((app->pad.Buttons & PSP_CTRL_UP) && !(app->prev_pad.Buttons & PSP_CTRL_UP)) {
+        data->menu_option = (data->menu_option - 1 + TOTAL_MENU_OPTIONS) % TOTAL_MENU_OPTIONS;
+        
+    }
+
+    if ((app->pad.Buttons & PSP_CTRL_CROSS) && !(app->prev_pad.Buttons & PSP_CTRL_CROSS)) {
+        if (data->menu_option == 0) {
+            set_screen(app, &GAME_SCREEN);
+        } else if (data->menu_option == 2) {
+            app->running = 0;
+        }
+    }
 }
 
 /*
@@ -71,7 +89,12 @@ static void menu_handle_events(app_t *app) {
 Semelhante ao app_iterate
 */
 static void menu_update(app_t *app) {
-
+    // MenuData *data = (MenuData*)app->screen_data;
+    // if (data->menu_option == 0) {
+    //     drawTextWithFont(">Play", 20, 20, app->font, app->renderer, (SDL_Color) { 255, 255, 255, 255 }, "high");
+    // } else if (data->menu_option == 1) {
+    //     drawTextWithFont(">Sair", 20, 60, app->font, app->renderer, (SDL_Color) { 255, 255, 255, 255 }, "high");
+    // }
 }
 
 static void menu_render(app_t *app) {
@@ -79,11 +102,23 @@ static void menu_render(app_t *app) {
 
     SDL_SetRenderDrawColor(app->renderer, 0, 0, 0, 255);
     SDL_RenderClear(app->renderer);
-
     SDL_RenderTexture(app->renderer, data->background_texture, NULL, NULL);
 
-    drawTextWithFont("Play", 20, 20, app->font, app->renderer, (SDL_Color) { 255, 255, 255, 255 }, "high");
-    drawTextWithFont("Sair", 20, 60, app->font, app->renderer, (SDL_Color) { 255, 255, 255, 255 }, "high");
+    const char* option1 = "  Play";
+    const char* option2 = " Options";
+    const char* option3 = " Sair";
+
+    if (data->menu_option == 0) {
+        option1 = "> Play";
+    } else if (data->menu_option == 1) {
+        option2 = "> Options";
+    } else if (data->menu_option == 2) {
+        option3 = "> Sair";
+    }
+
+    drawTextWithFont(option1, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2), app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
+    drawTextWithFont(option2, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2) + 30, app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
+    drawTextWithFont(option3, 20, WINDOW_HEIGHT - (WINDOW_HEIGHT / 2) + (30*2), app->font, app->renderer, (SDL_Color){ 255, 255, 255, 255 }, "high");
 
     SDL_RenderPresent(app->renderer);
 }

@@ -2,6 +2,7 @@
 #include "graphic.h"
 #include "screen.h"
 #include "player.h"
+#include "audio.h"
 
 static void game_init(app_t *a);
 static void game_handle_events(app_t *a);
@@ -102,38 +103,47 @@ static void navigateInWordMode(GameData* data, int d_row, int d_col) {
     data->active_orientation = data->selected_word->orientation;
 }
 
-static game_init(app_t *a) {
+static void game_init(app_t *a) {
     GameData *data = (GameData*)malloc(sizeof(GameData));
     if (!data) {
-        app->running 0;
+        a->running = 0;
         return;
     }
 
+    a->screen_data = data;
+
+    SDL_Surface *bg_surface = initImage(BACKGROUND_PNG);
+    if (!bg_surface) {
+        data->background_texture = NULL;
+    } else {
+        data->background_texture = createImageTexture(bg_surface, a->renderer);
+    }
+
     SDL_Surface *cross_btn_surface = initImage(CROSS_BUTTON_PNG);
-    a->assets.cross_btn_texture = createImageTexture(cross_btn_surface, a->renderer);
-    if (!a->assets.cross_btn_texture) return SDL_APP_FAILURE;
+    data->assets.cross_btn_texture = createImageTexture(cross_btn_surface, a->renderer);
+    if (!data->assets.cross_btn_texture) return;
 
     SDL_Surface *square_btn_surface = initImage(SQUARE_BUTTON_PNG);
-    a->assets.square_btn_texture = createImageTexture(square_btn_surface, a->renderer);
-    if (!a->assets.square_btn_texture) return SDL_APP_FAILURE;
+    data->assets.square_btn_texture = createImageTexture(square_btn_surface, a->renderer);
+    if (!data->assets.square_btn_texture) return;
 
     SDL_Surface *triangle_btn_surface = initImage(TRIANGLE_BUTTON_PNG);
-    a->assets.triangle_btn_texture = createImageTexture(triangle_btn_surface, a->renderer);
-    if (!a->assets.triangle_btn_texture) return SDL_APP_FAILURE;
+    data->assets.triangle_btn_texture = createImageTexture(triangle_btn_surface, a->renderer);
+    if (!data->assets.triangle_btn_texture) return;
 
     SDL_Surface *circle_btn_surface = initImage(CIRCLE_BUTTON_PNG);
-    a->assets.circle_btn_texture = createImageTexture(circle_btn_surface, a->renderer);
-    if (!a->assets.circle_btn_texture) return SDL_APP_FAILURE;
+    data->assets.circle_btn_texture = createImageTexture(circle_btn_surface, a->renderer);
+    if (!data->assets.circle_btn_texture) return;
 
-    a->player = init_player();
-    if (a->player == NULL) {
+    data->player = init_player();
+    if (data->player == NULL) {
         printDebug(SDL_GetError(), 5000);
-        return SDL_APP_FAILURE;
+        return;
     }
 
     int result = sceUtilityGetSystemParamString(PSP_SYSTEMPARAM_ID_STRING_NICKNAME, data->player->name, 128);
     if (result != 0) {
-        strcpy(a->player->name, "Player");
+        strcpy(data->player->name, "Player");
     }
 
     #define CENTRALIZED false
@@ -153,50 +163,57 @@ static game_init(app_t *a) {
     }
     GridArea* gridArea = newGridArea(grid_pos_x, grid_pos_y, grid_width, grid_height, padding);
     data->grid = newGrid(10, 10, gridArea);
-    if (a->grid == NULL) {
+    if (data->grid == NULL) {
         printDebug(SDL_GetError(), 5000);
-        return SDL_APP_FAILURE;
+        return;
     }
 
-    populateGridWithWords(a->grid, words, words_count);
+    populateGridWithWords(data->grid, words, words_count);
     // Iniciando o modo
-    a->selection_mode = WORD_MODE;
-    a->selected_word = &words[0];
-    a->active_orientation = HORIZONTAL;
+    data->selection_mode = WORD_MODE;
+    data->selected_word = &words[0];
+    data->active_orientation = HORIZONTAL;
 
     // coloca a posicao inicial do cursor para o inicio da primeira palavra
-    if (a->selected_word && a->selected_word->is_placed) {
-        a->grid->ai = a->selected_word->pos_final_i;
-        a->grid->aj = a->selected_word->pos_final_j;
+    if (data->selected_word && data->selected_word->is_placed) {
+        data->grid->ai = data->selected_word->pos_final_i;
+        data->grid->aj = data->selected_word->pos_final_j;
     }
 
-    a->grid->font = TTF_OpenFont(GAME_OVER_TTF, a->grid->font_size);
-    if (a->grid->font == NULL) {
+    data->grid->font = TTF_OpenFont(GAME_OVER_TTF, data->grid->font_size);
+    if (data->grid->font == NULL) {
         printDebug(SDL_GetError(), 5000);
-        return SDL_APP_FAILURE;
+        return;
     }
 
     /* LETTERS PRE-RENDERIZATION */
     SDL_Color SDL_BLACK = { 0, 0, 0, 255 };
     for(int i = 0; i < 26; i++) {
         char letter_str[2] = { (char)('A' + i), '\0' };
-        SDL_Surface* surface = TTF_RenderText_Blended(a->grid->font, letter_str, strlen(letter_str), SDL_BLACK);
+        SDL_Surface* surface = TTF_RenderText_Blended(data->grid->font, letter_str, strlen(letter_str), SDL_BLACK);
         if (surface) {
-            a->grid->letter_textures_cache[i] = SDL_CreateTextureFromSurface(a->renderer, surface);
+            data->grid->letter_textures_cache[i] = SDL_CreateTextureFromSurface(a->renderer, surface);
             SDL_DestroySurface(surface);
         } else {
-            a->grid->letter_textures_cache[i] = NULL;
+            data->grid->letter_textures_cache[i] = NULL;
         }
     }
-    updateCurrentHint(a); // evita o bug da hint nao aparecer ao iniciar
+    updateCurrentHint(data); // evita o bug da hint nao aparecer ao iniciar
     // INIT TIMER
-    a->start_time = SDL_GetTicks(); // NOTA: SDL_GetTicks() retorna o num de milissegundos desde que a biblioteca SDL foi inicializada.
+    data->start_time = SDL_GetTicks(); // NOTA: SDL_GetTicks() retorna o num de milissegundos desde que a biblioteca SDL foi inicializada.
+    a->screen_data = data;
 }
 
 static void game_handle_events(app_t *a) {
+    GameData *data = (GameData*)a->screen_data;
+    if (!data) {
+        a->running = 0;
+        return;
+    }
+
     readButtonState(&a->pad, 1);
-    if (a->pad.Buttons & PSP_CTRL_START) return SDL_APP_SUCCESS;
-    if (a->selection_mode == WORD_MODE) {
+    if (a->pad.Buttons & PSP_CTRL_START) return;
+    if (data->selection_mode == WORD_MODE) {
         // --- CONTROLES DO MODO PALAVRA ---
         int d_row = 0, d_col = 0;
         if ((a->pad.Buttons & PSP_CTRL_UP) && !(a->prev_pad.Buttons & PSP_CTRL_UP))  d_row = -1;
@@ -205,13 +222,13 @@ static void game_handle_events(app_t *a) {
         if ((a->pad.Buttons & PSP_CTRL_RIGHT) && !(a->prev_pad.Buttons & PSP_CTRL_RIGHT)) d_col = 1;
         
         if (d_row != 0 || d_col != 0) {
-            navigateInWordMode(a, d_row, d_col); // <- CHAMADA DA NOVA FUNÇÃO!
+            navigateInWordMode(data, d_row, d_col); // <- CHAMADA DA NOVA FUNÇÃO!
         }
 
         // Entra no Modo Letra
         if ((a->pad.Buttons & PSP_CTRL_CROSS) && !(a->prev_pad.Buttons & PSP_CTRL_CROSS)) {
-            a->selection_mode = LETTER_MODE;
-            if (a->selected_word) a->active_orientation = a->selected_word->orientation;
+            data->selection_mode = LETTER_MODE;
+            if (data->selected_word) data->active_orientation = data->selected_word->orientation;
         }
 
     } else { // LETTER_MODE
@@ -222,94 +239,143 @@ static void game_handle_events(app_t *a) {
         if ((a->pad.Buttons & PSP_CTRL_RIGHT) && !(a->prev_pad.Buttons & PSP_CTRL_RIGHT)) d_col = 1;
         if ((a->pad.Buttons & PSP_CTRL_LEFT) && !(a->prev_pad.Buttons & PSP_CTRL_LEFT)) d_col = -1;
     
-        moveGridSelection(a->grid, a->selected_word, d_row, d_col);
+        moveGridSelection(data->grid, data->selected_word, d_row, d_col);
         bool letter_was_changed = false;        
             
-        Word* word_to_check = findWordAt(a->grid->ai, a->grid->aj, words, words_count, a->active_orientation);
+        Word* word_to_check = findWordAt(data->grid->ai, data->grid->aj, words, words_count, data->active_orientation);
         
         // apenas permite editar se a palavra nao estiver resolvida
         if (word_to_check && !word_to_check->is_solved) {
             if ((a->pad.Buttons & PSP_CTRL_CROSS) && !(a->prev_pad.Buttons & PSP_CTRL_CROSS)) {
-                moveCellLetterSelection(a->grid, "right");
+                moveCellLetterSelection(data->grid, "right");
                 letter_was_changed = true;
+
             } else if ((a->pad.Buttons & PSP_CTRL_SQUARE) && !(a->prev_pad.Buttons & PSP_CTRL_SQUARE)) {
-                moveCellLetterSelection(a->grid, "left");
+                moveCellLetterSelection(data->grid, "left");
                 letter_was_changed = true;
             }
         }
         if (letter_was_changed) {
             // verifica se a palavra foi completada
-            if (checkWordCompletion(a->grid, word_to_check)) {
+            if (checkWordCompletion(data->grid, word_to_check)) {
                 word_to_check->is_solved = true;
-                a->player->score += 100;
+                data->player->score += 100;
                 trigger_native_sound(); // TODO: Change this trigger audio logic
             }
             
             // checa tb na outra orientação caso tenha uma interseção
-            Word* other_word = findWordAt(a->grid->ai, a->grid->aj, words, words_count, (a->active_orientation == HORIZONTAL) ? VERTICAL : HORIZONTAL);
-            if (other_word && !other_word->is_solved && checkWordCompletion(a->grid, other_word)) {
+            Word* other_word = findWordAt(data->grid->ai, data->grid->aj, words, words_count, (data->active_orientation == HORIZONTAL) ? VERTICAL : HORIZONTAL);
+            if (other_word && !other_word->is_solved && checkWordCompletion(data->grid, other_word)) {
                 other_word->is_solved = true;
-                a->player->score += 100;
+                data->player->score += 100;
                 trigger_native_sound();
             }
         }
 
         // Troca a orientação de escrita na interseção (botão círculo)
         if ((a->pad.Buttons & PSP_CTRL_CIRCLE) && !(a->prev_pad.Buttons & PSP_CTRL_CIRCLE)) {
-            a->active_orientation = (a->active_orientation == HORIZONTAL) ? VERTICAL : HORIZONTAL;
+            data->active_orientation = (data->active_orientation == HORIZONTAL) ? VERTICAL : HORIZONTAL;
             // Troca a palavra selecionada se houver uma na nova orientação
-            Word* other_word = findWordAt(a->grid->ai, a->grid->aj, words, words_count, a->active_orientation);
-            if (other_word) a->selected_word = other_word;
+            Word* other_word = findWordAt(data->grid->ai, data->grid->aj, words, words_count, data->active_orientation);
+            if (other_word) data->selected_word = other_word;
         }
 
         // Volta para o Modo Palavra (botão triângulo)
         if ((a->pad.Buttons & PSP_CTRL_TRIANGLE) && !(a->prev_pad.Buttons & PSP_CTRL_TRIANGLE)) {
-            a->selection_mode = WORD_MODE;
+            data->selection_mode = WORD_MODE;
         }
     }
 
 }
 
 static void game_update(app_t *a) {
+    GameData *data = (GameData*)a->screen_data;
+    if (!data) return;
     // --- ATUALIZAÇÃO DE ESTADO ---
-    updateCurrentHint(a);
+    updateCurrentHint(data);
 
 }
 
 static void game_render(app_t *a) {
     GameData *data = (GameData*)a->screen_data;
+    if (!data) return;
     SDL_SetRenderDrawColor(a->renderer, 0, 0, 0, 255);
     SDL_RenderClear(a->renderer);
-    SDL_RenderTexture(a->renderer, a->background_texture, NULL, NULL);
+    SDL_RenderTexture(a->renderer, data->background_texture, NULL, NULL);
 
     // Draw Grid
-    drawGrid(a->grid, a->renderer, a->selection_mode, a->selected_word, words, words_count);
+    drawGrid(data->grid, a->renderer, data->selection_mode, data->selected_word, words, words_count);
     // Draw Hint
     float x = (WINDOW_WIDTH / 2) + 20;
     float y = 10;
     float rectW = (WINDOW_WIDTH / 2) - 30;
     float rectH = (WINDOW_HEIGHT / 2 ) - 15;
-    if (a->current_hint) drawHint(a->current_hint, x, y, rectW, rectH, a->hint_font, a->renderer);
+    if (data->current_hint) drawHint(data->current_hint, x, y, rectW, rectH, a->hint_font, a->renderer);
 
     y = WINDOW_HEIGHT / 2;
     drawInfoBox(x, y, rectW, rectH, a->hint_font, a->renderer);
-    drawScore(a->player->score, a->hint_font, a->renderer);
-    drawTime(a->start_time, a->hint_font, a->renderer);
-    drawInfoStr(a->player->name, a->hint_font, a->renderer);
+    drawScore(data->player->score, a->hint_font, a->renderer);
+    drawTime(data->start_time, a->hint_font, a->renderer);
+    drawInfoStr(data->player->name, a->hint_font, a->renderer);
 
     if (a->pad.Buttons & PSP_CTRL_LTRIGGER) {
-        drawInstructionBox(a->hint_font, a->renderer, &a->assets);
+        drawInstructionBox(a->hint_font, a->renderer, &data->assets);
     }
 
     SDL_RenderPresent(a->renderer); // mostra na tela tudo o que foi desenhado    
 }
 
+// Em algum lugar (talvez no seu arquivo grid.c)
+void destroyGrid(Grid* grid) {
+    if (!grid) return;
+    if (grid->font) TTF_CloseFont(grid->font);
+    for (int i = 0; i < 26; i++) {
+        if (grid->letter_textures_cache[i]) {
+            SDL_DestroyTexture(grid->letter_textures_cache[i]);
+        }
+    }
+    if (grid->gridArea) free(grid->gridArea);
+    free(grid);
+}
+
+// Em game.c
+
 static void game_destroy(app_t *app) {
     GameData *data = (GameData*)app->screen_data;
     if (data) {
+        // 1. Destruir todas as texturas de assets
         SDL_DestroyTexture(data->background_texture);
-        free(data->player);
-        free(data->grid)
+        SDL_DestroyTexture(data->assets.cross_btn_texture);
+        SDL_DestroyTexture(data->assets.square_btn_texture);
+        SDL_DestroyTexture(data->assets.triangle_btn_texture);
+        SDL_DestroyTexture(data->assets.circle_btn_texture);
+
+        // 2. Liberar o jogador
+        if (data->player) {
+            free(data->player);
+        }
+
+        // 3. Liberar a Grid e seus recursos internos (IMPORTANTE)
+        if (data->grid) {
+            // Primeiro, feche a fonte que a grid usa
+            if (data->grid->font) {
+                TTF_CloseFont(data->grid->font);
+            }
+            // Depois, destrua as texturas de letras pré-renderizadas
+            for (int i = 0; i < 26; i++) {
+                if (data->grid->letter_textures_cache[i]) {
+                    SDL_DestroyTexture(data->grid->letter_textures_cache[i]);
+                }
+            }
+            // Libere a memória da GridArea (se foi alocada dinamicamente)
+            if (data->grid->gridArea) {
+                free(data->grid->gridArea);
+            }
+            // Finalmente, libere a própria struct da grid
+            destroyGrid(data->grid);
+        }
+        
+        // 4. Liberar a struct principal de dados do jogo
         free(data);
     }
     app->screen_data = NULL;
