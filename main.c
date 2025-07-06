@@ -66,20 +66,18 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
     // para renderização transparente
     SDL_SetRenderDrawBlendMode(a->renderer, SDL_BLENDMODE_BLEND);
 
+    // a->font = TTF_OpenFont(GAME_OVER_TTF, 60);
+    // if (a->font == NULL) {
+    //     printDebug(SDL_GetError(), 5000);
+    //     return SDL_APP_FAILURE;
+    // }
 
-    a->font = TTF_OpenFont(GAME_OVER_TTF, 60);
-    if (a->font == NULL) {
-        printDebug(SDL_GetError(), 5000);
-        return SDL_APP_FAILURE;
-    }
-
-    a->hint_font = TTF_OpenFont(GAME_OVER_TTF, 30);
-    if (a->hint_font == NULL) {
-        TTF_CloseFont(a->font); // Limpa a fonte anterior se a segunda falhar
-        printDebug(SDL_GetError(), 5000);
-        return SDL_APP_FAILURE;
-    }
-
+    // a->hint_font = TTF_OpenFont(GAME_OVER_TTF, 30);
+    // if (a->hint_font == NULL) {
+    //     TTF_CloseFont(a->font); // Limpa a fonte anterior se a segunda falhar
+    //     printDebug(SDL_GetError(), 5000);
+    //     return SDL_APP_FAILURE;
+    // }
 
     // Inicializando o controle nativo
     sceCtrlSetSamplingCycle(0);
@@ -88,7 +86,7 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
     a->running = 1; //indica que o app está rodando
 
     // defino a tela inicial do jogo
-    set_screen(a, &MENU_SCREEN);
+    set_screen(a, &ENTRY_SCREEN);
     *appstate = (void *)a;
 
 	return SDL_APP_CONTINUE;
@@ -104,9 +102,10 @@ SDL_AppResult SDL_AppIterate(void *appstate)
     app_t *a = (app_t *)appstate;
     a->prev_pad = a->pad;
 
-    // Delego tarefas
+    // Leio denovo o estado do controle
+    readButtonState(&a->pad, 1);
 
-    // handl events eh delegado pra tela atual
+    // delego tarefas pra tela atual
     if (a->current_screen && a->current_screen->handle_events) {
         a->current_screen->handle_events(a);
     }
@@ -149,8 +148,8 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result)
             a->current_screen->destroy(a);
         }
 
-        TTF_CloseFont(a->font);
-        TTF_CloseFont(a->hint_font);
+        // TTF_CloseFont(a->font);
+        // TTF_CloseFont(a->hint_font);
         SDL_DestroyRenderer(a->renderer);
         SDL_DestroyWindow(a->window);
         cleanup_native_audio();

@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/RositaCrossword.dir/include/audio.c.obj.d"
   "CMakeFiles/RositaCrossword.dir/include/common.c.obj"
   "CMakeFiles/RositaCrossword.dir/include/common.c.obj.d"
+  "CMakeFiles/RositaCrossword.dir/include/entry.c.obj"
+  "CMakeFiles/RositaCrossword.dir/include/entry.c.obj.d"
   "CMakeFiles/RositaCrossword.dir/include/game.c.obj"
   "CMakeFiles/RositaCrossword.dir/include/game.c.obj.d"
   "CMakeFiles/RositaCrossword.dir/include/graphic.c.obj"

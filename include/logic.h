@@ -15,6 +15,7 @@
 
 #define START_LETTER 'A'
 #define END_LETTER 'Z'
+#define ALPHA 26
 
 typedef struct {
     float x; // i
@@ -44,10 +45,11 @@ typedef struct {
     TTF_Font* font;
     int font_size;
     SDL_Color font_color;
-    SDL_Texture* letter_textures_cache[26];
+    SDL_Texture* letter_textures_cache[ALPHA];
     //Word** words;
     //int total_words;
 } Grid;
+
 
 void print1d(char *v, int size);
 //void printGrid(Grid* grid, int size); obsoleta

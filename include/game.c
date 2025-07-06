@@ -29,7 +29,10 @@ typedef struct {
     Uint32 start_time;
     const char *current_hint;
     GameAssets assets;
+    TTF_Font* info_font;
 } GameData;
+
+SDL_Color SDL_BLACK = { 0, 0, 0, 255 };
 
 static void updateCurrentHint(GameData* data) {
     if (!data || !data->grid) return;
@@ -105,7 +108,7 @@ static void navigateInWordMode(GameData* data, int d_row, int d_col) {
 }
 
 static void game_init(app_t *a) {
-    GameData *data = (GameData*)malloc(sizeof(GameData));
+    GameData *data = (GameData*)calloc(1, sizeof(GameData));
     if (!data) {
         printDebug(SDL_GetError(), 5000);
         a->running = 0;
@@ -113,7 +116,7 @@ static void game_init(app_t *a) {
     }
 
     // limpando a memoria pra evitar lixo no ponteiro
-    memset(data, 0, sizeof(GameData));
+    //memset(data, 0, sizeof(GameData));
     //a->screen_data = data;
 
     SDL_Surface *bg_surface = initImage(BACKGROUND_PNG);
@@ -206,31 +209,42 @@ static void game_init(app_t *a) {
         data->grid->aj = data->selected_word->pos_final_j;
     }
 
-    // data->grid->font = TTF_OpenFont(GAME_OVER_TTF, data->grid->font_size);
-    // if (data->grid->font == NULL) {
-    //     printDebug(SDL_GetError(), 5000);
-    //     a->running = 0;
-    //     return;
-    // }
-
-    data->grid->font = a->hint_font;
-
-    // erro aqui provavelmente
-    /* LETTERS PRE-RENDERIZATION */
-    SDL_Color SDL_BLACK = { 0, 0, 0, 255 };
-    for(int i = 0; i < 26; i++) {
-        char letter_str[2] = { (char)('A' + i), '\0' };
-        SDL_Surface* surface = TTF_RenderText_Blended(a->hint_font, letter_str, strlen(letter_str), SDL_BLACK);
-        if (surface) {
-            data->grid->letter_textures_cache[i] = SDL_CreateTextureFromSurface(a->renderer, surface);
-            SDL_DestroySurface(surface);
-        } else {
-            // printDebug(SDL_GetError(), 20000);
-            data->grid->letter_textures_cache[i] = NULL;
-            // a->running = 0;
-            //return;
-        }
+    data->info_font = TTF_OpenFont(GAME_OVER_TTF, 30);
+    if (data->info_font == NULL) {
+        TTF_CloseFont(data->info_font); // Limpa a fonte anterior se a segunda falhar
+        printDebug(SDL_GetError(), 5000);
+        a->running = 0;
+        return;
     }
+
+    data->grid->font = TTF_OpenFont(GAME_OVER_TTF, data->grid->font_size);
+    if (data->grid->font == NULL) {
+        printDebug(SDL_GetError(), 5000);
+        a->running = 0;
+        return;
+    }
+
+    // // erro aqui provavelmente
+    // /* LETTERS PRE-RENDERIZATION */
+    // for(int i = 0; i < ALPHA; i++) {
+    //     char letter_str[2] = { (char)('A' + i), '\0' };
+    //     SDL_Surface* surface = TTF_RenderText_Blended(data->grid->font, letter_str, strlen(letter_str), SDL_BLACK);
+    //     if (surface) {
+    //         data->grid->letter_textures_cache[i] = SDL_CreateTextureFromSurface(a->renderer, surface);
+    //         SDL_DestroySurface(surface);
+    //     } else {
+    //         //printDebug(SDL_GetError(), 20000);
+    //         data->grid->letter_textures_cache[i] = NULL;
+    //         a->running = 0;
+    //         return;
+    //     }
+    //     // else {
+    //     //     printDebug(SDL_GetError(), 20000);
+    //     //     data->grid->letter_textures_cache[i] = NULL;
+    //     //     a->running = 0;
+    //     //     return;
+    //     // }
+    // }
 
     updateCurrentHint(data); // evita o bug da hint nao aparecer ao iniciar
     // INIT TIMER
@@ -246,7 +260,7 @@ static void game_handle_events(app_t *a) {
         return;
     }
 
-    readButtonState(&a->pad, 1);
+    // readButtonState(&a->pad, 1);
     if (a->pad.Buttons & PSP_CTRL_START) return;
     if (data->selection_mode == WORD_MODE) {
         // --- CONTROLES DO MODO PALAVRA ---
@@ -349,16 +363,16 @@ static void game_render(app_t *a) {
     float y = 10;
     float rectW = (WINDOW_WIDTH / 2) - 30;
     float rectH = (WINDOW_HEIGHT / 2 ) - 15;
-    if (data->current_hint) drawHint(data->current_hint, x, y, rectW, rectH, a->hint_font, a->renderer);
+    if (data->current_hint) drawHint(data->current_hint, x, y, rectW, rectH, data->info_font, a->renderer);
 
     y = WINDOW_HEIGHT / 2;
-    drawInfoBox(x, y, rectW, rectH, a->hint_font, a->renderer);
-    drawScore(data->player->score, a->hint_font, a->renderer);
-    drawTime(data->start_time, a->hint_font, a->renderer);
-    drawInfoStr(data->player->name, a->hint_font, a->renderer);
+    drawInfoBox(x, y, rectW, rectH, data->info_font, a->renderer);
+    //drawScore(data->player->score, data->info_font, a->renderer);
+    //drawTime(data->start_time, data->info_font, a->renderer);
+    //drawInfoStr(data->player->name, data->info_font, a->renderer);
 
     if (a->pad.Buttons & PSP_CTRL_LTRIGGER) {
-        drawInstructionBox(a->hint_font, a->renderer, &data->assets);
+        drawInstructionBox(data->info_font, a->renderer, &data->assets);
     }
 
     SDL_RenderPresent(a->renderer); // mostra na tela tudo o que foi desenhado    
@@ -381,9 +395,10 @@ static void game_destroy(app_t *app) {
 
         // 3. Liberar a Grid e seus recursos internos (IMPORTANTE)
         if (data->grid) {
+            TTF_CloseFont(data->grid->font);
             destroyGrid(data->grid);
         }
-        
+        TTF_CloseFont(data->info_font);
         // 4. Liberar a struct principal de dados do jogo
         free(data);
     }

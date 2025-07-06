@@ -155,7 +155,7 @@ bool canPlaceWordAt(Grid* grid, const char* word, int row, int col, WordOrientat
         }
 
         // checa se saiu dos limites da grade
-        if (r >= grid->nrow || c >= grid->ncol) return false;
+        if (r < 0 || r >= grid->nrow || c < 0 || c >= grid->ncol) return false;
 
         // checa se a celll da grid nao esta vazia e se tem uma letra diferente
         char grid_char = grid->list_cells[r][c].solution_letter; // checa contra a letra da solucao. opera no gabarito

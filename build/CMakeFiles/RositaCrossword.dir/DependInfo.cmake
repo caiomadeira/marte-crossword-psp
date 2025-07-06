@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/caiomadeira/Desktop/app-psp/include/audio.c" "CMakeFiles/RositaCrossword.dir/include/audio.c.obj" "gcc" "CMakeFiles/RositaCrossword.dir/include/audio.c.obj.d"
   "/home/caiomadeira/Desktop/app-psp/include/common.c" "CMakeFiles/RositaCrossword.dir/include/common.c.obj" "gcc" "CMakeFiles/RositaCrossword.dir/include/common.c.obj.d"
+  "/home/caiomadeira/Desktop/app-psp/include/entry.c" "CMakeFiles/RositaCrossword.dir/include/entry.c.obj" "gcc" "CMakeFiles/RositaCrossword.dir/include/entry.c.obj.d"
   "/home/caiomadeira/Desktop/app-psp/include/game.c" "CMakeFiles/RositaCrossword.dir/include/game.c.obj" "gcc" "CMakeFiles/RositaCrossword.dir/include/game.c.obj.d"
   "/home/caiomadeira/Desktop/app-psp/include/graphic.c" "CMakeFiles/RositaCrossword.dir/include/graphic.c.obj" "gcc" "CMakeFiles/RositaCrossword.dir/include/graphic.c.obj.d"
   "/home/caiomadeira/Desktop/app-psp/include/logic.c" "CMakeFiles/RositaCrossword.dir/include/logic.c.obj" "gcc" "CMakeFiles/RositaCrossword.dir/include/logic.c.obj.d"

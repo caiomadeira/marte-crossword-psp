@@ -190,6 +190,30 @@ include/common.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/common.c.s
 .PHONY : include/common.c.s
 
+include/entry.obj: include/entry.c.obj
+.PHONY : include/entry.obj
+
+# target to build an object file
+include/entry.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/entry.c.obj
+.PHONY : include/entry.c.obj
+
+include/entry.i: include/entry.c.i
+.PHONY : include/entry.i
+
+# target to preprocess a source file
+include/entry.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/entry.c.i
+.PHONY : include/entry.c.i
+
+include/entry.s: include/entry.c.s
+.PHONY : include/entry.s
+
+# target to generate assembly for a file
+include/entry.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RositaCrossword.dir/build.make CMakeFiles/RositaCrossword.dir/include/entry.c.s
+.PHONY : include/entry.c.s
+
 include/game.obj: include/game.c.obj
 .PHONY : include/game.obj
 
@@ -374,6 +398,9 @@ help:
 	@echo "... include/common.obj"
 	@echo "... include/common.i"
 	@echo "... include/common.s"
+	@echo "... include/entry.obj"
+	@echo "... include/entry.i"
+	@echo "... include/entry.s"
 	@echo "... include/game.obj"
 	@echo "... include/game.i"
 	@echo "... include/game.s"

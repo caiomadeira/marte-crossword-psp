@@ -12,6 +12,7 @@ add_executable(${PROJECT_NAME}
     include/words.c
     include/game.c
     include/menu.c
+    include/entry.c
 )
 
 set(ASSETS_DIR ${CMAKE_SOURCE_DIR}/assets)
